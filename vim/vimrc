@@ -9,6 +9,9 @@ call pathogen#helptags()
 " SETTINGS "
 """"""""""""
 
+set ignorecase
+set smartcase
+
 syntax on
 filetype plugin indent on
 
@@ -62,27 +65,6 @@ colorscheme telstar
 """"""""""""""
 " KEYMAPPING "
 """"""""""""""
-
-" Left/Right arrow keys change buffers in all modes
-noremap  <Left> <Esc>:bp<CR>
-inoremap <Left> <Esc>:bp<CR>
-nnoremap <Left> <Esc>:bp<CR>
-vnoremap <Left> <Esc>:bp<CR>
-
-noremap  <Right> <Esc>:bn<CR>
-inoremap <Right> <Esc>:bn<CR>
-nnoremap <Right> <Esc>:bn<CR>
-vnoremap <Right> <Esc>:bn<CR>
-
-" Disable up/down arrow keys
-noremap  <up>   <nop>
-noremap  <down> <nop>
-nnoremap <up>   <nop>
-nnoremap <down> <nop>
-vnoremap <up>   <nop>
-vnoremap <down> <nop>
-inoremap <up>   <nop>
-inoremap <down> <nop>
 
 " Make mouse middle click paste without formatting it.
 map <MouseMiddle> <Esc>"*p
