@@ -91,6 +91,15 @@ nnoremap <leader>=  :Tabularize /=<CR>
 " \h turns off highlighting for the current search
 nnoremap <leader>h  :nohls<CR>
 
+" Home key
+map <esc>OH <home>
+cmap <esc>OH <home>
+imap <esc>OH <home>
+" End Key
+map <esc>OF <end>
+cmap <esc>OF <end>
+imap <esc>OF <end> 
+
 """""""""""""""""""
 " BUNDLE SETTINGS "
 """""""""""""""""""
