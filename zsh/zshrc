@@ -92,4 +92,9 @@ export GIT_EDITOR=/usr/bin/vim
 export LESS=ir
 export JAVA_HOME=/usr/lib/jvm/default-java
 
+
+bindkey "\eOH" beginning-of-line
+bindkey "\eOF" end-of-line
+bindkey "\e[3~" delete-char
+
 # vim: set ai et sw=4 syntax=zsh :
