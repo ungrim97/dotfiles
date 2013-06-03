@@ -2,10 +2,11 @@
 # Custom Aliases #
 ##################
 
+alias l='ls -la'
+alias ls='ls --color'
 alias ll='ls -l'
 alias la='ls -a'
 alias lal='ls -al'
-alias lla='ls -al'
 
 # Quick way to notify me of events with a memorable name
 alias say='notify-send'
