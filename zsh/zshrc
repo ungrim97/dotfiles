@@ -51,6 +51,11 @@ setopt extended_glob
 ###############################
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
+# Handle copybuffers
+
+autocutsel &
+autocutsel -s PRIMARY &
+
 
 ####################
 # MODULES AND PATH #
