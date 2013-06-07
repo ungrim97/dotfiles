@@ -29,9 +29,9 @@ zstyle ':vcs_info:*' formats '%F{blue}[%F{green}%b%F{blue}]'
 
 precmd () {
     if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null) ]] {
-        zstyle ':vcs_info:git*:*' formats ' [%F{green}%b %c%u %F{blue}]'
+        zstyle ':vcs_info:git*:*' formats ' [%F{green}%b%c%u%F{blue}]'
     } else {
-        zstyle ':vcs_info:git*:*' formats ' [%F{green}%b %F{red}^%c%u%F{blue}]'
+        zstyle ':vcs_info:git*:*' formats ' [%F{green}%b%F{red}^%c%u%F{blue}]'
     }
 
     vcs_info
