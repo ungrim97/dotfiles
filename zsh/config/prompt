@@ -23,22 +23,22 @@ zstyle ':vcs_info:*' enable git svn
 # git diff --quiet --ignore-submodules HEAD is faster for untracked files but
 # I don't know how to incorporate it yet
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr '%F{green}+'
-zstyle ':vcs_info:*' unstagedstr '%F{yellow}*'
-zstyle ':vcs_info:*' formats '%F{blue}[%F{green}%b%F{blue}]'
+zstyle ':vcs_info:*' stagedstr '%F{2}+'
+zstyle ':vcs_info:*' unstagedstr '%F{3}*'
+zstyle ':vcs_info:*' formats '%F{4}[%F{3}%b%F{4}]'
 
 precmd () {
     if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null) ]] {
-        zstyle ':vcs_info:git*:*' formats ' [%F{green}%b%c%u%F{blue}]'
+        zstyle ':vcs_info:git*:*' formats ' [%F{2}%b%c%u%F{4}]'
     } else {
-        zstyle ':vcs_info:git*:*' formats ' [%F{green}%b%F{red}^%c%u%F{blue}]'
+        zstyle ':vcs_info:git*:*' formats ' [%F{2}%b%F{red}^%c%u%F{4}]'
     }
 
     vcs_info
 }
 
 setopt prompt_subst
-PROMPT='%F{green}%n@%m%F{grey}:%F{blue}%B%~%F{blue}${vcs_info_msg_0_}$ '
+PROMPT='%F{2}%n@%m%F{11}:%F{11}%~%F{4}${vcs_info_msg_0_}$ '
 
 # Change Terminal / Screen / TMux title for terminal when moving to another machine
 if [ ! -z $SSH_CONNECTION ]
