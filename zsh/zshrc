@@ -5,14 +5,6 @@
 ZSHRC=${ZDOTDIR-~}/.zshrc
 ZSH_FOLDER=${ZSHRC:A:h}
 
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-setopt appendhistory notify
-bindkey -v
-# End of lines configured by zsh-newuser-install
-
 # The following lines were added by compinstall
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _list _expand _complete _ignored _match
@@ -44,12 +36,31 @@ compinit
 # This allows exclusions and the like in the pattern expansion
 setopt extended_glob
 
+# Report the status of background jobs immediately, rather than waiting until
+# just before printing a prompt.
+setopt notify
+
 ###############################
 # make less more friendly for #
 # non-text input files, see   #
 # lesspipe(1)                 #
 ###############################
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+
+###########
+# HISTORY #
+###########
+
+HISTFILE=~/.histfile
+HISTSIZE=1000000
+SAVEHIST=1000000
+
+# This option both imports new commands from the history file, and also causes
+# your typed commands to be appended to the history file (the latter is like
+# specifying INC_APPEND_HISTORY). The history lines are also output with
+# timestamps ala EXTENDED_HISTORY (which makes it easier to find the spot where
+# we left off reading the file after it gets re-written).
+setopt share_history
 
 ####################
 # MODULES AND PATH #
@@ -60,6 +71,7 @@ setopt extended_glob
 antigen-bundle zsh-users/zsh-syntax-highlighting
 antigen-bundle Tarrasch/zsh-functional
 antigen-bundle zsh-users/zsh-history-substring-search
+antigen-bundle bobthecow/git-flow-completion
 antigen-apply
 
 # Load the fasd completion system.
@@ -91,5 +103,24 @@ export GIT_EDITOR=/usr/bin/vim
 export LESS=ir
 export JAVA_HOME=/usr/lib/jvm/default-java
 
+#########
+# SILLY #
+#########
+
+# http://stackoverflow.com/a/904023
+function most_useless_use_of_zsh {
+   local lines columns colour a b p q i pnew
+   ((columns=COLUMNS-1, lines=LINES-1, colour=0))
+   for ((b=-1.5; b<=1.5; b+=3.0/lines)) do
+       for ((a=-2.0; a<=1; a+=3.0/columns)) do
+           for ((p=0.0, q=0.0, i=0; p*p+q*q < 4 && i < 32; i++)) do
+               ((pnew=p*p-q*q+a, q=2*p*q+b, p=pnew))
+           done
+           ((colour=(i/4)%8))
+            echo -n "\\e[4${colour}m "
+        done
+        echo
+    done
+}
 
 # vim: set ai et sw=4 syntax=zsh :

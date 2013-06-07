@@ -82,3 +82,15 @@
 [submodule "vim/bundle/vim-repeat"]
 	path = vim/bundle/vim-repeat
 	url = https://github.com/tpope/vim-repeat
+[submodule "vim/bundle/ack.vim"]
+	path = vim/bundle/ack.vim
+	url = git://github.com/mileszs/ack.vim.git
+[submodule "vim/bundle/vim-numbertoggle"]
+	path = vim/bundle/vim-numbertoggle
+	url = git://github.com/matthewfranglen/vim-numbertoggle.git
+[submodule "vim/bundle/vim-unimpaired"]
+	path = vim/bundle/vim-unimpaired
+	url = git://github.com/tpope/vim-unimpaired.git
+[submodule "irssi/irssi-colors-solarized"]
+	path = irssi/irssi-colors-solarized
+	url = git://github.com/huyz/irssi-colors-solarized.git
