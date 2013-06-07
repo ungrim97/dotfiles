@@ -16,29 +16,29 @@
 # %(?..) => prompt conditional - %(condition.true.false)
 
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git # You can add hg too if needed: `git hg`
-zstyle ':vcs_info:git*' formats       '(%F{green}%b%F{grey})'
-zstyle ':vcs_info:git*' actionformats '(%F{red}%b|%a%F{grey})'
-
 autoload -U colors
 
-git_status() {
+zstyle ':vcs_info:*' enable git svn
+# check-for-changes if very slow on large repos.
+# git diff --quiet --ignore-submodules HEAD is faster for untracked files but
+# I don't know how to incorporate it yet
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' stagedstr '%F{green}+'
+zstyle ':vcs_info:*' unstagedstr '%F{yellow}*'
+zstyle ':vcs_info:*' formats '%F{blue}[%F{green}%b%F{blue}]'
+
+precmd () {
+    if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null) ]] {
+        zstyle ':vcs_info:git*:*' formats ' [%F{green}%b %c%u %F{blue}]'
+    } else {
+        zstyle ':vcs_info:git*:*' formats ' [%F{green}%b %F{red}^%c%u%F{blue}]'
+    }
+
     vcs_info
-    if [ ! -z $vcs_info_msg_0_ ]
-    then
-        echo -n $vcs_info_msg_0_
-        # Fastest possible way to check if repo is dirty
-        # See: https://gist.github.com/sindresorhus/3898739
-        git diff --quiet --ignore-submodules HEAD 2>/dev/null; [ $? -eq 1 ] && echo -n '%F{red}%b' || echo -n ''
-    fi
 }
 
-# Prompt turns red if the previous command didn't exit with 0
-setopt PROMPT_SUBST
-PROMPT='%F{green}%n@%m%F{grey}:%F{blue}%B%~%F{grey}$( git_status )$ '
-# PS1='%(?.%F{green}.%F{red})❯%f '
-# Can be disabled:
-# PROMPT='%F{magenta}❯%f '
+setopt prompt_subst
+PROMPT='%F{green}%n@%m%F{grey}:%F{blue}%B%~%F{blue}${vcs_info_msg_0_}$ '
 
 # Change Terminal / Screen / TMux title for terminal when moving to another machine
 if [ ! -z $SSH_CONNECTION ]
