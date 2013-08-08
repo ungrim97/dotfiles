@@ -15,4 +15,6 @@ alias say='notify-send'
 # grep!
 alias ack='ack-grep'
 
+export SRE='/opt/semantico/sre/current/bin'
+export CONF_DIR='/etc/semantico/instance/'
 # vim: set ai et sw=4 syntax=zsh :
