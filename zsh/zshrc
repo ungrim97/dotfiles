@@ -3,7 +3,7 @@
 # $0 does not work if this is symlinked. Essentially the script is not invoked or sourced
 # see http://stackoverflow.com/questions/9901210/bash-source0-equivalent-in-zsh
 ZSHRC=${ZDOTDIR-~}/.zshrc
-ZSH_FOLDER=${ZSHRC:A:h}
+ZSH_FOLDER=$(dirname $(readlink -e $ZSHRC))
 
 # The following lines were added by compinstall
 zstyle ':completion:*' auto-description 'specify: %d'
@@ -32,6 +32,10 @@ fpath=(${ZSH_FOLDER}/autocomplete $fpath)
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+
+# zmv allows for mass renames. Use -n to test the rename. Example:
+# zmv '(*)-HDTV-WAKKA-WAKKA.(*)' '$1.$2'
+autoload -U zmv
 
 # This allows exclusions and the like in the pattern expansion
 setopt extended_glob
@@ -72,6 +76,7 @@ antigen-bundle zsh-users/zsh-syntax-highlighting
 antigen-bundle Tarrasch/zsh-functional
 antigen-bundle zsh-users/zsh-history-substring-search
 antigen-bundle bobthecow/git-flow-completion
+antigen-bundle matthewfranglen/git-update
 antigen-apply
 
 # Load the fasd completion system.
