@@ -87,6 +87,8 @@ eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
 # add bin folder to path
 PATH=$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
 
+# Perlbrew Source
+[ -e ~/perl5/perlbrew ] && source ~/perl5/perlbrew/etc/bashrc
 
 ######################
 # PROMPT AND ALIASES #
