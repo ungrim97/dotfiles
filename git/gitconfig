@@ -1,0 +1,11 @@
+[user]
+	name = Mike Francis
+	email = ungrim97@gmail.com
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+[alias]
+    sur = submodule update --recursive
+    co	= checkout
+    st	= status
