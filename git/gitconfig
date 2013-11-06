@@ -9,3 +9,5 @@
     sur = submodule update --recursive
     co	= checkout
     st	= status
+[push]
+	default = simple
