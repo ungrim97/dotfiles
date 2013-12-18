@@ -13,3 +13,6 @@ libxml2-dev libxslt-dev
 
 # Allows perl formatting
 perltidy
+
+# xpath requires this
+python-lxml
