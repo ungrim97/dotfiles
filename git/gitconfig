@@ -9,5 +9,6 @@
     sur = submodule update --recursive
     co	= checkout
     st	= status
+    cp  = cherrypick
 [push]
 	default = matching

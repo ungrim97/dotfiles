@@ -87,6 +87,10 @@ eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
 PATH=$HOME/.anyenv/bin:$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
 
 eval "$(anyenv init -)"
+if anyenv envs | grep -v plenv; then
+    eval "$(anyenv install plenv)"
+fi
+eval "$(plenv init -)"
 
 ######################
 # PROMPT AND ALIASES #
