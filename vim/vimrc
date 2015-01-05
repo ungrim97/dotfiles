@@ -29,7 +29,7 @@ if has('vim_starting')
 
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc', {
@@ -73,6 +73,7 @@ NeoBundle "vim-scripts/nginx.vim.git"
 
 NeoBundleCheck
 
+call neobundle#end()
 """"""""""""
 " SETTINGS "
 """"""""""""
@@ -154,7 +155,7 @@ set t_Co=256
 
 let g:solarized_termcolors=256
 set background=dark
-colorscheme solarized
+colorscheme blackboard
 
 """"""""""""""
 " KEYMAPPING "

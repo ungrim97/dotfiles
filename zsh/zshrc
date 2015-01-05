@@ -76,7 +76,6 @@ antigen-bundle zsh-users/zsh-syntax-highlighting
 antigen-bundle Tarrasch/zsh-functional
 antigen-bundle zsh-users/zsh-history-substring-search
 antigen-bundle bobthecow/git-flow-completion
-antigen-bundle matthewfranglen/git-update
 antigen-apply
 
 # Load the fasd completion system.
@@ -85,10 +84,9 @@ PATH=$PATH:${ZSH_FOLDER}/packages/fasd
 eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
 
 # add bin folder to path
-PATH=$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
+PATH=$HOME/.anyenv/bin:$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
 
-# Perlbrew Source
-[ -e ~/perl5/perlbrew ] && source ~/perl5/perlbrew/etc/bashrc
+eval "$(anyenv init -)"
 
 ######################
 # PROMPT AND ALIASES #
@@ -109,25 +107,5 @@ export SVN_EDITOR=/usr/bin/vim
 export GIT_EDITOR=/usr/bin/vim
 export LESS=ir
 export JAVA_HOME=/usr/lib/jvm/default-java
-
-#########
-# SILLY #
-#########
-
-# http://stackoverflow.com/a/904023
-function most_useless_use_of_zsh {
-   local lines columns colour a b p q i pnew
-   ((columns=COLUMNS-1, lines=LINES-1, colour=0))
-   for ((b=-1.5; b<=1.5; b+=3.0/lines)) do
-       for ((a=-2.0; a<=1; a+=3.0/columns)) do
-           for ((p=0.0, q=0.0, i=0; p*p+q*q < 4 && i < 32; i++)) do
-               ((pnew=p*p-q*q+a, q=2*p*q+b, p=pnew))
-           done
-           ((colour=(i/4)%8))
-            echo -n "\\e[4${colour}m "
-        done
-        echo
-    done
-}
 
 # vim: set ai et sw=4 syntax=zsh :
