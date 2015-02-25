@@ -6,9 +6,10 @@
 [merge]
 	tool = vimdiff
 [alias]
+    gl  = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     sur = submodule update --recursive
     co	= checkout
     st	= status
-    cp  = cherrypick
+    cp  = cherry-pick
 [push]
-	default = matching
+    default = upstream

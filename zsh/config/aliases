@@ -15,6 +15,5 @@ alias say='notify-send'
 # grep!
 alias ack='ack-grep'
 
-export SRE='/opt/semantico/sre/current/bin'
-export CONF_DIR='/etc/semantico/instance/'
+alias pintopan="PERL_CPANM_OPT='--mirror http://192.168.1.26:2000 --mirror http://192.168.1.26:8080 --mirror https://pinto.adcourier.com:443 --mirror http://cpan.metacpan.org/ --mirror-only --cascade-search' cpanm"
 # vim: set ai et sw=4 syntax=zsh :

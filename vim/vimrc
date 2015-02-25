@@ -46,6 +46,7 @@ NeoBundle "Shougo/vimproc.vim"
 if ( v:version > 704 || ( v:version > 703 && has( 'patch584' ) ) ) && has( 'python' )
     NeoBundle "Valloric/YouCompleteMe"
 endif
+
 NeoBundle "actionshrimp/vim-xpath.git"
 NeoBundle "altercation/vim-colors-solarized.git"
 NeoBundle "bronson/vim-visual-star-search"
@@ -70,7 +71,6 @@ NeoBundle "tpope/vim-unimpaired.git"
 NeoBundle "vim-perl/vim-perl"
 NeoBundle "vim-scripts/kwbdi.vim.git"
 NeoBundle "vim-scripts/nginx.vim.git"
-
 NeoBundleCheck
 
 call neobundle#end()
@@ -183,9 +183,6 @@ nnoremap <leader>s :syntax sync fromstart<CR>
 nnoremap <leader>=> :Tabularize /=><CR>
 nnoremap <leader>=  :Tabularize /=<CR>
 
-" \h turns off highlighting for the current search
-nnoremap <leader>h  :nohls<CR>
-
 " Home key
 map <esc>OH <home>
 cmap <esc>OH <home>
@@ -193,9 +190,26 @@ imap <esc>OH <home>
 " End Key
 map <esc>OF <end>
 cmap <esc>OF <end>
-imap <esc>OF <end> 
+imap <esc>OF <end>
 " \p changes paste mode.
 nnoremap <leader>p :set paste!<CR>
+
+"""""""""""""""""""""""""
+" FUNCTION KEY MAPPINGS "
+"""""""""""""""""""""""""
+
+" F1 turns off highlighting for the current search
+let hlstate=0
+nnoremap <F1> :if (hlstate == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=1-hlstate<cr>
+
+" F2 toggles line numbers
+nnoremap <F2> :set invnumber<CR>
+
+" F4 Git Blame
+nnoremap <F4> :Gblame<CR>
+
+" F11 Remove trailing whitespace
+nnoremap <F11> :%s/\s\s*$//<CR>
 
 """""""""""""""""""
 " BUNDLE SETTINGS "
@@ -206,7 +220,7 @@ set rtp+=~/.powerline/powerline/bindings/vim
 " http://stackoverflow.com/questions/5601749/how-to-filter-out-files-by-extension-in-nerdtree
 let NERDTreeIgnore = ['\.pyc$']
 
-" Toggle Tags with <F8>, Nerdtree with <F7>
+"! Toggle Tags with <F8>, Nerdtree with <F7>
 nnoremap <F7> :NERDTreeToggle<CR><C-W>l
 nnoremap <F8> :TagbarToggle<CR>
 
