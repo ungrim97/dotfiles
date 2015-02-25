@@ -22,3 +22,6 @@
 [submodule "irssi/irssi-colors-solarized"]
 	path = irssi/irssi-colors-solarized
 	url = git://github.com/huyz/irssi-colors-solarized.git
+[submodule "anyenv/envs/plenv"]
+    path = anyenv/envs/plenv
+    url = git://github.com/tokuhirom/plenv.git
