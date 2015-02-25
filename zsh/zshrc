@@ -84,14 +84,15 @@ PATH=$PATH:${ZSH_FOLDER}/packages/fasd
 eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
 
 # add bin folder to path
-PATH=$HOME/.anyenv/bin:$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
 
-eval "$(anyenv init -)"
-if anyenv envs | grep -v plenv; then
-    eval "$(anyenv install plenv)"
-    eval "$(plenv install-cpanm)"
+if [[ -e $HOME/.anyenv ]]; then
+    PATH=$HOME/.anyenv/bin:$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
+    eval "$(anyenv init -)"
+    if anyenv envs | grep -v plenv; then
+        eval "$(plenv install-cpanm)"
+    fi
+    eval "$(plenv init -)"
 fi
-eval "$(plenv init -)"
 
 ######################
 # PROMPT AND ALIASES #

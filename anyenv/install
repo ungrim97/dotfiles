@@ -1,0 +1,4 @@
+plenv install 5.20.2
+plenv global 5.20.2
+plenv rehash
+plenv install-cpanm
