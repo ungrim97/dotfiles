@@ -1,1 +1,2 @@
 . ~/.anyenv
+./plugins/perl-build ~/.anyenv/envs/plenv/plugins/perl-build
