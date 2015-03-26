@@ -102,6 +102,10 @@ fi
 . ${ZSH_FOLDER}/config/prompt
 . ${ZSH_FOLDER}/config/keymapping
 
+# load local specific file if it exists
+if [[ -e $HOME/.zshlocalrc ]]; then
+    . $HOME/.zshlocalrc
+fi
 
 ################
 # EDITOR STUFF #
