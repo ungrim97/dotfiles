@@ -25,3 +25,6 @@
 [submodule "anyenv/envs/plenv"]
     path = anyenv/envs/plenv
     url = git://github.com/tokuhirom/plenv.git
+[submodule "anyenv/plugins/perl-build"]
+	path = anyenv/plugins/perl-build
+	url = git://github.com/tokuhirom/Perl-Build.git
