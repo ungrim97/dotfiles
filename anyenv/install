@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 anyenv init
 plenv init
 plenv install 5.20.2
