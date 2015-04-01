@@ -16,4 +16,18 @@ alias say='notify-send'
 alias ack='ack-grep'
 
 alias pintopan="PERL_CPANM_OPT='--mirror http://192.168.1.26:2000 --mirror http://192.168.1.26:8080 --mirror https://pinto.adcourier.com:443 --mirror http://cpan.metacpan.org/ --mirror-only --cascade-search' cpanm"
+
+# Git/Svn shortcuts
+alias gco='git checkout'
+alias gr='git rebase'
+alias gro="git rebase --onto"
+alias gp='git pull'
+alias gl='git list'
+alias gst='git status'
+alias gcm='git commit -m'
+alias ga='git add'
+
+alias sst='svn status'
+alias sup='svn up'
+
 # vim: set ai et sw=4 syntax=zsh :
