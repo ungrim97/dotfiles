@@ -6,7 +6,7 @@
 [merge]
 	tool = vimdiff
 [alias]
-    gl  = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    gl  = log --colour --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(magenta)(%ar) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     sur = submodule update --recursive
     co	= checkout
     st	= status

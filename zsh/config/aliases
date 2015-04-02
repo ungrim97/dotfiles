@@ -20,11 +20,12 @@ alias pintopan="PERL_CPANM_OPT='--mirror http://192.168.1.26:2000 --mirror http:
 # Git/Svn shortcuts
 alias gco='git checkout'
 alias gr='git rebase'
+alias gri='git rebase -i'
 alias gro="git rebase --onto"
 alias gp='git pull'
-alias gl='git list'
+alias gl='git gl'
 alias gst='git status'
-alias gcm='git commit -m'
+alias gcm='git co -m'
 alias ga='git add'
 
 alias sst='svn status'
