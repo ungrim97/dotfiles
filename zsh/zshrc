@@ -65,6 +65,9 @@ SAVEHIST=1000000
 # timestamps ala EXTENDED_HISTORY (which makes it easier to find the spot where
 # we left off reading the file after it gets re-written).
 setopt share_history
+unsetopt inc_append_history
+setopt hist_save_no_dups
+setopt hist_ignore_all_dups
 
 ####################
 # MODULES AND PATH #
