@@ -5,3 +5,4 @@ irssi/config
 irssi/config.autosave
 vim/bundle
 vim/undo
+vim/view/*
