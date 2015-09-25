@@ -1,8 +1,10 @@
 #!/bin/zsh
 
-anyenv init
-plenv init
-plenv install 5.22.0
-plenv global 5.22.0
-plenv rehash
-plenv install-cpanm
+if [[ -z $(echo plenv version) ]]; then
+    anyenv init
+    plenv init
+    plenv install 5.22.0
+    plenv global 5.22.0
+    plenv rehash
+    plenv install-cpanm
+fi
