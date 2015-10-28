@@ -86,15 +86,8 @@ antigen-apply
 PATH=$PATH:${ZSH_FOLDER}/packages/fasd
 eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
 
-# add bin folder to path
-
-if [[ -e $HOME/.anyenv ]]; then
-    PATH=$HOME/.anyenv/bin:$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
-    eval "$(anyenv init -)"
-    if anyenv envs | grep -v plenv; then
-        eval "$(plenv install-cpanm)"
-    fi
-    eval "$(plenv init -)"
+if [[ -e $HOME/.rakudobrew ]]; then
+    PATH=$HOME/.rakudobrew/bin:$PATH
 fi
 
 ######################
