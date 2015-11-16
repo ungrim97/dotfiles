@@ -5,7 +5,7 @@
 ZSHRC=${ZDOTDIR-~}/.zshrc
 ZSH_FOLDER=$(dirname $(readlink -e $ZSHRC))
 
-PATH=$HOME/bin:$PATH
+PATH=$HOME/bin:$HOME/share/perl6/site/bin:$PATH
 
 # The following lines were added by compinstall
 zstyle ':completion:*' auto-description 'specify: %d'
