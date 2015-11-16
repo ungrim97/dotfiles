@@ -83,8 +83,14 @@ antigen-apply
 
 # Load the fasd completion system.
 # See https://github.com/clvv/fasd
-PATH=$PATH:${ZSH_FOLDER}/packages/fasd
+PATH=$PATH:${HOME}/bin:${ZSH_FOLDER}/packages/fasd
 eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
+
+# add bin folder to path
+
+if [[ -e $HOME/.anyenv ]]; then
+    eval "$(anyenv init -)"
+fi
 
 if [[ -e $HOME/.rakudobrew ]]; then
     PATH=$HOME/.rakudobrew/bin:$PATH
