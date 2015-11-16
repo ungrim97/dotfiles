@@ -5,6 +5,8 @@
 ZSHRC=${ZDOTDIR-~}/.zshrc
 ZSH_FOLDER=$(dirname $(readlink -e $ZSHRC))
 
+PATH=$HOME/bin:$PATH
+
 # The following lines were added by compinstall
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _list _expand _complete _ignored _match
@@ -83,12 +85,13 @@ antigen-apply
 
 # Load the fasd completion system.
 # See https://github.com/clvv/fasd
-PATH=$PATH:${HOME}/bin:${ZSH_FOLDER}/packages/fasd
+PATH=$PATH:${ZSH_FOLDER}/packages/fasd
 eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
 
 # add bin folder to path
 
 if [[ -e $HOME/.anyenv ]]; then
+    PATH=$HOME/.anyenv/bin:$PATH
     eval "$(anyenv init -)"
 fi
 
