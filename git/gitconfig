@@ -1,10 +1,10 @@
 [user]
-	name = Mike Francis
-	email = ungrim97@gmail.com
+    name = Mike Eve
+    email = ungrim97@gmail.com
 [core]
-	editor = vim
+    editor = vim
 [merge]
-	tool = vimdiff
+    tool = vimdiff
 [alias]
     gl  = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     sur = submodule update --recursive
