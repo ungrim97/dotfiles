@@ -20,7 +20,7 @@ fi
 if [[ -z $(ndenv version) ]]; then
     anyenv init
     ndenv init
-    ndenv install 5.6.0
-    ndenv global 5.6.0
+    ndenv install v5.6.0
+    ndenv global v5.6.0
     nbenv rehash
 fi
