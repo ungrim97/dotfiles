@@ -8,3 +8,19 @@ if [[ -z $(plenv version) ]]; then
     plenv rehash
     plenv install-cpanm
 fi
+
+if [[ -z $(rbenv version) ]]; then
+    anyenv init
+    rbenv init
+    rbenv install 2.3.0
+    rbenv global 2.3.0
+    rbenv rehash
+fi
+
+if [[ -z $(ndenv version) ]]; then
+    anyenv init
+    ndenv init
+    ndenv install 5.6.0
+    ndenv global 5.6.0
+    nbenv rehash
+fi
