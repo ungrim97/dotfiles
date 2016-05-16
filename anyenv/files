@@ -1,2 +1,4 @@
 . ~/.anyenv
 ./plugins/perl-build ~/.anyenv/envs/plenv/plugins/perl-build
+./plugins/node-build ~/.anyenv/envs/ndenv/plugins/node-build
+./plugins/ruby-build ~/.anyenv/envs/rbenv/plugins/ruby-build
