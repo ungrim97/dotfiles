@@ -2,6 +2,7 @@
 
 if [[ -z $(plenv version) ]]; then
     anyenv init
+    exec $SHELL -l
     plenv init
     plenv install 5.22.0
     plenv global 5.22.0
@@ -11,6 +12,7 @@ fi
 
 if [[ -z $(rbenv version) ]]; then
     anyenv init
+    exec $SHELL -l
     rbenv init
     rbenv install 2.3.0
     rbenv global 2.3.0
@@ -19,6 +21,7 @@ fi
 
 if [[ -z $(ndenv version) ]]; then
     anyenv init
+    exec $SHELL -l
     ndenv init
     ndenv install v5.6.0
     ndenv global v5.6.0
