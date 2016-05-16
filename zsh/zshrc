@@ -95,6 +95,18 @@ if [[ -e $HOME/.anyenv ]]; then
     eval "$(anyenv init -)"
 fi
 
+if [[ -e $HOME/.anyenv/envs/plenv ]]; then
+    eval "$(plenv init -)"
+fi
+
+if [[ -e $HOME/.anyenv/envs/rbenv ]]; then
+    eval "$(rbenv init -)"
+fi
+
+if [[ -e $HOME/.anyenv/envs/ndenv ]]; then
+    eval "$(ndenv init -)"
+fi
+
 if [[ -e $HOME/.rakudobrew ]]; then
     PATH=$HOME/.rakudobrew/bin:$PATH
 fi
