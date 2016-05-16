@@ -35,8 +35,8 @@
     path = anyenv/plugins/perl-build
     url = git://github.com/tokuhirom/Perl-Build.git
 [submodule "anyenv/plugins/ruby-build"]
-    path = anyenv/plugins/ruby-build
-    url = git://github.com/rbenv/ruby-build.git
+	path = anyenv/plugins/ruby-build
+	url = git://github.com/rbenv/ruby-build.git
 [submodule "anyenv/plugins/node-build"]
-    path = anyenv/plugins/node-build
-    url = git://github.com/riywo/node-build.git
+	path = anyenv/plugins/node-build
+	url = git://github.com/riywo/node-build.git
