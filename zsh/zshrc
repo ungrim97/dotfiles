@@ -107,9 +107,15 @@ if [[ -e $HOME/.anyenv/envs/ndenv ]]; then
     eval "$(ndenv init -)"
 fi
 
+if [[ -e $HOME/.anyenv/envs/jenv ]]; then
+    eval "$(jenv init -)"
+    export JAVA_HOME="/home/mfrancis/.anyenv/envs/jenv/versions/1.8.0.102"
+fi
+
 if [[ -e $HOME/.rakudobrew ]]; then
     PATH=$HOME/.rakudobrew/bin:$PATH
 fi
+
 
 ######################
 # PROMPT AND ALIASES #
