@@ -26,8 +26,10 @@
     path = anyenv/envs/rbenv
     url = git://github.com/rbenv/rbenv.git
 [submodule "anyenv/envs/pyenv"]
+    path = anyenv/envs/pyenv
 	url = git://github.com/yyuu/pyenv.git
 [submodule "anyenv/envs/jenv"]
+    path = anyenv/envs/jenv
 	url = git://github.com/gcuisinier/jenv.git
 [submodule "anyenv/envs/ndenv"]
     path = anyenv/envs/ndenv
