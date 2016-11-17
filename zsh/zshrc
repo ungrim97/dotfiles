@@ -91,7 +91,7 @@ eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
 # add bin folder to path
 
 if [[ -e $HOME/.anyenv ]]; then
-    PATH=$HOME/.anyenv/bin:$PATH
+    export PATH="$HOME/.anyenv/bin:$PATH"
     eval "$(anyenv init -)"
 fi
 
@@ -108,14 +108,16 @@ if [[ -e $HOME/.anyenv/envs/ndenv ]]; then
 fi
 
 if [[ -e $HOME/.anyenv/envs/jenv ]]; then
+    export PATH="$HOME/.jenv/bin:$PATH"
     eval "$(jenv init -)"
-    export JAVA_HOME="/home/mfrancis/.anyenv/envs/jenv/versions/1.8.0.102"
+    export JAVA_HOME="$(jenv javahome)"
 fi
 
 if [[ -e $HOME/.rakudobrew ]]; then
-    PATH=$HOME/.rakudobrew/bin:$PATH
+    export PATH="$HOME/.rakudobrew/bin:$PATH"
 fi
 
+export GATLING_HOME="/usr/lib/gatling"
 
 ######################
 # PROMPT AND ALIASES #
@@ -139,6 +141,5 @@ export EDITOR=/usr/bin/vim
 export SVN_EDITOR=/usr/bin/vim
 export GIT_EDITOR=/usr/bin/vim
 export LESS=ir
-export JAVA_HOME=/usr/lib/jvm/default-java
 
 # vim: set ai et sw=4 syntax=zsh :
