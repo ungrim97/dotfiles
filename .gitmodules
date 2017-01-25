@@ -22,27 +22,3 @@
 [submodule "irssi/irssi-colors-solarized"]
 	path = irssi/irssi-colors-solarized
 	url = git://github.com/huyz/irssi-colors-solarized.git
-[submodule "anyenv/envs/rbenv"]
-    path = anyenv/envs/rbenv
-    url = git://github.com/rbenv/rbenv.git
-[submodule "anyenv/envs/pyenv"]
-    path = anyenv/envs/pyenv
-	url = git://github.com/yyuu/pyenv.git
-[submodule "anyenv/envs/jenv"]
-    path = anyenv/envs/jenv
-	url = git://github.com/gcuisinier/jenv.git
-[submodule "anyenv/envs/ndenv"]
-    path = anyenv/envs/ndenv
-    url = git://github.com/riywo/ndenv.git
-[submodule "anyenv/envs/plenv"]
-    path = anyenv/envs/plenv
-    url = git://github.com/tokuhirom/plenv.git
-[submodule "anyenv/plugins/perl-build"]
-    path = anyenv/plugins/perl-build
-    url = git://github.com/tokuhirom/Perl-Build.git
-[submodule "anyenv/plugins/ruby-build"]
-	path = anyenv/plugins/ruby-build
-	url = git://github.com/rbenv/ruby-build.git
-[submodule "anyenv/plugins/node-build"]
-	path = anyenv/plugins/node-build
-	url = git://github.com/riywo/node-build.git
