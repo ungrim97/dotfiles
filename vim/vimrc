@@ -50,7 +50,6 @@ endif
 NeoBundle "actionshrimp/vim-xpath.git"
 NeoBundle "altercation/vim-colors-solarized.git"
 NeoBundle "bronson/vim-visual-star-search"
-NeoBundle "dart-lang/dart-vim-plugin.git"
 NeoBundle "godlygeek/tabular.git"
 NeoBundle "groenewege/vim-less.git"
 NeoBundle "hail2u/vim-css3-syntax.git"
@@ -171,16 +170,6 @@ map <MouseMiddle> <Esc>"*p
 " http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
 nnoremap <C-J> a<CR><Esc>k$
 
-" \f now formats perl scripts with perltidy
-nnoremap <leader>f :1,$!perltidy<CR>
-
-" \l now Data::Dumps the current WORD
-" nnoremap <C-L> diWi{ print Data::Dumper->new( [ <Esc>p$a ] )->Dump; <Esc>p$a }<Esc>
-nnoremap <leader>l diWiprint Data::Dumper->new( [ <C-R>" ] )->Dump;<Esc>
-
-" \s syncs syntax from start
-nnoremap <leader>s :syntax sync fromstart<CR>
-
 " \= and \=> do :Tabularize stuff
 nnoremap <leader>=> :Tabularize /=><CR>
 nnoremap <leader>=  :Tabularize /=<CR>
@@ -193,6 +182,7 @@ imap <esc>OH <home>
 map <esc>OF <end>
 cmap <esc>OF <end>
 imap <esc>OF <end>
+
 " \p changes paste mode.
 nnoremap <leader>p :set paste!<CR>
 
@@ -203,21 +193,27 @@ nnoremap <leader>p :set paste!<CR>
 " F1 turns off highlighting for the current search
 let hlstate=0
 nnoremap <F1> :if (hlstate == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=1-hlstate<cr>
-
 " F2 toggles line numbers
 nnoremap <F2> :set invnumber<CR>
+" F3
 
 " F4 Git Blame
 nnoremap <F4> :Gblame<CR>
-
+" F5
 nnoremap <F5> :set cursorline! cursorcolumn!<CR>
+" F6
 
-"! Toggle Tags with <F8>, Nerdtree with <F7>
+" F7 NERDTree
 nnoremap <F7> :NERDTreeToggle<CR><C-W>l
+" F8 Tagbar
 nnoremap <F8> :TagbarToggle<CR>
+" F9
+
+" F10
 
 " F11 Remove trailing whitespace
 nnoremap <F11> :%s/\s\s*$//<CR>
+" F12
 
 """""""""""""""""""
 " BUNDLE SETTINGS "
@@ -232,12 +228,6 @@ let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
-
-" Unite settings from
-" http://bling.github.io/blog/2013/06/02/unite-dot-vim-the-plugin-you-didnt-know-you-need/
-nnoremap <C-P>     :Unite file_rec/async<CR>
-nnoremap <leader>/ :Unite grep:.<CR>
-nnoremap <leader>s :Unite -quick-match buffer<CR>
 
 let g:syntastic_python_checkers=['python', 'pyflakes', 'pep8', 'pylint']
 
