@@ -38,7 +38,9 @@ precmd () {
 }
 
 setopt prompt_subst
-PROMPT='%F{2}%n@%m%F{11}:%F{11}%~%F{4}${vcs_info_msg_0_}$ '
+# Green{username@hostname}White:CWD VCS INFO$
+PROMPT='%F{2}%n@%m%F{11}:
+%F{11}%~%F{4}${vcs_info_msg_0_}$ '
 
 # Change Terminal / Screen / TMux title for terminal when moving to another machine
 if [ ! -z $SSH_CONNECTION ]

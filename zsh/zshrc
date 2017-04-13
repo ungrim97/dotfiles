@@ -5,6 +5,8 @@
 ZSHRC=${ZDOTDIR-~}/.zshrc
 ZSH_FOLDER=$(dirname $(readlink -e $ZSHRC))
 
+PATH=$HOME/bin:$HOME/share/perl6/site/bin:$PATH
+
 # The following lines were added by compinstall
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _list _expand _complete _ignored _match
@@ -89,13 +91,33 @@ eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
 # add bin folder to path
 
 if [[ -e $HOME/.anyenv ]]; then
-    PATH=$HOME/.anyenv/bin:$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
+    export PATH="$HOME/.anyenv/bin:$PATH"
     eval "$(anyenv init -)"
-    if anyenv envs | grep -v plenv; then
-        eval "$(plenv install-cpanm)"
-    fi
+fi
+
+if [[ -e $HOME/.anyenv/envs/plenv ]]; then
     eval "$(plenv init -)"
 fi
+
+if [[ -e $HOME/.anyenv/envs/rbenv ]]; then
+    eval "$(rbenv init -)"
+fi
+
+if [[ -e $HOME/.anyenv/envs/ndenv ]]; then
+    eval "$(ndenv init -)"
+fi
+
+if [[ -e $HOME/.anyenv/envs/jenv ]]; then
+    export PATH="$HOME/.jenv/bin:$PATH"
+    eval "$(jenv init -)"
+    export JAVA_HOME="$(jenv javahome)"
+fi
+
+if [[ -e $HOME/.rakudobrew ]]; then
+    export PATH="$HOME/.rakudobrew/bin:$PATH"
+fi
+
+export GATLING_HOME="/usr/lib/gatling"
 
 ######################
 # PROMPT AND ALIASES #
@@ -119,6 +141,5 @@ export EDITOR=/usr/bin/vim
 export SVN_EDITOR=/usr/bin/vim
 export GIT_EDITOR=/usr/bin/vim
 export LESS=ir
-export JAVA_HOME=/usr/lib/jvm/default-java
 
 # vim: set ai et sw=4 syntax=zsh :

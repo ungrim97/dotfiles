@@ -25,6 +25,15 @@ zsh -c '
         done
         [ -e ${folder}/install ] && ${folder}/install
     done
-'
 
-# vim: set ai et sw=4 syntax=zsh :
+    function collect-libs () {
+        echo -n $(cat ./extra-libs | sed -e "s/#.*$//" -e "s/^\s*//" -e "s/\s*$//" -e "/^$/d")
+    }
+
+    # Install modules
+    libs=$(collect-libs)
+
+    echo "Installing $libs"
+    sudo apt-get install ${(s/ /)libs}
+'
+## vim: set ai et sw=4 syntax=zsh :
