@@ -95,6 +95,8 @@ set nocompatible   " Disable vi-compatibility
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
 
+autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
+
 " I tried lots of different things (like putting swap files in /tmp) but
 " really, just die swap files. DIE!
 set noswapfile
