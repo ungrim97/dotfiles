@@ -25,6 +25,9 @@ link_file () {
 
     if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
     then
+
+      local currentSrc="$(readlink $dst)"
+
       user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
       [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
       read -n 1 action
@@ -84,7 +87,8 @@ install_dotfiles () {
 
   for src in $(find "$DOTFILES_FOLDER/" -maxdepth 4 -name '*.symlink')
   do
-     dst="$HOME/.$(basename "${src%.*}")"
+    tmp_dst="$HOME/.${src#$DOTFILES_FOLDER/*/}"
+    dst="${tmp_dst%.*}"
     link_file "$src" "$dst"
   done
 }

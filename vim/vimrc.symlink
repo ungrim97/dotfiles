@@ -91,6 +91,7 @@ function s:PrepareForPluginLoad() abort
     " Fuck YouCompleteMe. Bastard!
     let g:ycm_key_list_select_completion = []
     let g:ycm_key_list_previous_completion = []
+    let g:ycm_server_python_interpreter = '/usr/bin/python'
 
     let g:ycm_add_preview_to_completeopt = 0
     set completeopt=menuone
@@ -115,7 +116,7 @@ endfunction
 function s:RegisterPlugins() abort
     " Each of these is registered in the g:plugs map.
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-    Plug 'https://github.com/Valloric/YouCompleteMe.git', { 'do': './install.py' }
+    Plug 'https://github.com/Valloric/YouCompleteMe.git', { 'do': './install.py --all' }
     Plug 'https://github.com/altercation/vim-colors-solarized.git'
     Plug 'https://github.com/bronson/vim-visual-star-search'
     Plug 'https://github.com/godlygeek/tabular.git'

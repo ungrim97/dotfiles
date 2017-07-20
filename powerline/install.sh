@@ -1,6 +1,6 @@
 set -eu
 
-. "`dirname \`dirname \\\`readlink -f $0\\\`\``/lib.sh"
+. "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 
 install () {
     if ! is_on_local_machine
@@ -32,6 +32,8 @@ install_powerline () {
 }
 
 install_fonts () {
+    echo "Installing powerline fonts" >&3
+
     git clone "https://github.com/powerline/fonts.git"
     cd ./fonts && ./install.sh
     cd ../

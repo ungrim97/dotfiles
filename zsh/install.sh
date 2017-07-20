@@ -35,7 +35,6 @@ install_oh_my_zsh () {
     fi
 
     get_url_to_file "https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh" - | zsh 2>&1
-    rm ~/.zshrc
 
     if [ -f ~/.zshrc.pre-oh-my-zsh ] || [ -h ~/.zshrc.pre-oh-my-zsh ]; then
         mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
@@ -51,7 +50,7 @@ install_noti () {
         return
     fi
 
-    get_url_to_file "https://github.com/variadico/noti/releases/download/v2.6.0/noti2.3.0.linux-amd64.tar.gz" "${noti_download}" || return 1
+    get_url_to_file "https://github.com/variadico/noti/releases/download/v2.3.0/noti2.3.0.linux-amd64.tar.gz" "${noti_download}" || return 1
     (
         cd "${LOCAL_BIN_FOLDER}"
         tar -xzf "${noti_download}"
