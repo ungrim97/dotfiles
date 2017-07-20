@@ -1,0 +1,37 @@
+WARNING: this script is deprecated. Use the install.py script instead.
+NOT using libclang, no semantic completion for C/C++/ObjC will be available
+-- git Version: v0.0.0
+-- Version: 0.0.0
+-- Performing Test HAVE_STD_REGEX
+-- Performing Test HAVE_STD_REGEX -- success
+-- Performing Test HAVE_GNU_POSIX_REGEX
+-- Performing Test HAVE_GNU_POSIX_REGEX -- failed to compile
+-- Performing Test HAVE_POSIX_REGEX
+-- Performing Test HAVE_POSIX_REGEX -- success
+-- Performing Test HAVE_STEADY_CLOCK
+-- Performing Test HAVE_STEADY_CLOCK -- success
+In file included from /home/mfrancis/dotfiles/vim/plugged/YouCompleteMe/third_party/ycmd/cpp/BoostParts/boost/python/detail/prefix.hpp:13:0,
+                 from /home/mfrancis/dotfiles/vim/plugged/YouCompleteMe/third_party/ycmd/cpp/BoostParts/boost/python/handle.hpp:8,
+                 from /home/mfrancis/dotfiles/vim/plugged/YouCompleteMe/third_party/ycmd/cpp/BoostParts/boost/python/converter/arg_to_python_base.hpp:7,
+                 from /home/mfrancis/dotfiles/vim/plugged/YouCompleteMe/third_party/ycmd/cpp/BoostParts/libs/python/src/converter/arg_to_python_base.cpp:6:
+/home/mfrancis/dotfiles/vim/plugged/YouCompleteMe/third_party/ycmd/cpp/BoostParts/boost/python/detail/wrap_python.hpp:50:23: fatal error: pyconfig.h: No such file or directory
+ # include <pyconfig.h>
+                       ^
+compilation terminated.
+make[3]: *** [BoostParts/CMakeFiles/BoostParts.dir/libs/python/src/converter/arg_to_python_base.cpp.o] Error 1
+make[3]: *** Waiting for unfinished jobs....
+make[2]: *** [BoostParts/CMakeFiles/BoostParts.dir/all] Error 2
+make[1]: *** [ycm/CMakeFiles/ycm_core.dir/rule] Error 2
+make: *** [ycm_core] Error 2
+ERROR: the build failed.
+
+NOTE: it is *highly* unlikely that this is a bug but rather
+that this is a problem with the configuration of your system
+or a missing dependency. Please carefully read CONTRIBUTING.md
+and if you're sure that it is a bug, please raise an issue on the
+issue tracker, including the entire output of this script
+and the invocation line used to run it.
+./vim/plugged/YouCompleteMe/third_party/ycmd/third_party/JediHTTP/travis/install.sh: 20: ./vim/plugged/YouCompleteMe/third_party/ycmd/third_party/JediHTTP/travis/install.sh: [[: not found
+./vim/plugged/YouCompleteMe/third_party/ycmd/third_party/JediHTTP/travis/install.sh: 57: ./vim/plugged/YouCompleteMe/third_party/ycmd/third_party/JediHTTP/travis/install.sh: pip: not found
+sh: 1: ./zsh/install.sh: Permission denied
+sh: 1: ./powerline/install.sh: Permission denied

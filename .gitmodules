@@ -15,10 +15,10 @@
 	url = git://github.com/znxster/irssi-scripts.git
 [submodule "fonts/packages/powerline-fonts"]
 	path = fonts/packages/powerline-fonts
-	url = git://github.com/Lokaltog/powerline-fonts.git
+	url = git://github.com/powerline/fonts
 [submodule "powerline/packages/powerline"]
 	path = powerline/packages/powerline
-	url = git://github.com/Lokaltog/powerline.git
+	url = git://github.com/powerline/powerline.git
 [submodule "irssi/irssi-colors-solarized"]
 	path = irssi/irssi-colors-solarized
 	url = git://github.com/huyz/irssi-colors-solarized.git

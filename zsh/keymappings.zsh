@@ -1,0 +1,73 @@
+# VI Mode
+bindkey -v
+
+# Disable ctrl-s ctrl-q (suspend, resume. frequently really really annoying!)
+# http://geekanova.blogspot.co.uk/2012/11/ctrl-s-freezes-terminal.html
+stty -ixon -ixoff
+
+# Map caps lock to escape. This can fail if your keyboard is plugged in after
+# this runs, hence the function definition. As this updates X11 it should only
+# be done locally.
+function keyboard_map_caps_lock() {
+    # Don't want to run this on remote hosts!
+    # This updates X! Doing this via a keyboard map option now, don't want to
+    # have to unset other things or worry about partial failures.
+    [ -z "$SSH_CONNECTION" ] && setxkbmap -option caps:escape
+}
+keyboard_map_caps_lock
+
+# Fix delete, home and end which would otherwise just caps a random bunch of
+# characters. Thanks to Michael Francis for this fix!
+# (Amazingly these bindings vary, so this may not work for you. inputrc is
+# supposed to be the source for this sort of thing)
+source =(cat /etc/inputrc |
+            sed -ne '/^#/d'    \
+            -e 's/://'         \
+            -e 's/^/bindkey /' \
+            -e '/\(delete-char\|beginning-of-line\|end-of-line\)/p')
+
+# Requires https://github.com/zsh-users/zsh-history-substring-search
+# (handled by antigen)
+# This allows the entire line to be used as a search when pressing up or down.
+# Move to the start of the line to prevent this.
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
+# This allows control-r to be used to perform a reverse search
+bindkey -M viins '^r' history-incremental-search-backward
+bindkey -M vicmd '^r' history-incremental-search-backward
+
+bindkey -M viins '^t' push-line
+bindkey -M vicmd '^t' push-line
+
+# This allows alt-. to insert the last word of the last command (i.e. !$)
+bindkey "^[." insert-last-word
+bindkey "®"   insert-last-word
+
+# Enter command mode and v will provide a full $EDITOR for commands
+# See https://news.ycombinator.com/item?id=5508341
+# http://stackoverflow.com/questions/890620/unable-to-have-bash-like-c-x-e-in-zsh
+# http://nuclearsquid.com/writings/edit-long-commands/
+# etc etc
+autoload -U         edit-command-line
+zle      -N         edit-command-line
+bindkey  -M vicmd v edit-command-line
+
+# N.B. The builtin fc (fix command) can be used to edit and rerun history
+
+# Map control-p to the vim ctrlp command. Will open vim and run ctrlp.
+# This is lovely and dirty - will wipe out the current line.
+function vim-ctrlp () {
+    BUFFER='vim "+:Unite file_rec/async"'
+    zle accept-line
+}
+zle -N                vim-ctrlp
+bindkey -M viins '^P' vim-ctrlp
+
+bindkey "\eOH" beginning-of-line
+bindkey "\eOF" end-of-line
+bindkey "\e[1~" beginning-of-line
+bindkey "\e[4~" end-of-line
+bindkey "\e[3~" delete-char
+
+# vim: set ai et sw=4 syntax=zsh :

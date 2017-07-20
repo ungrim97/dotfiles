@@ -1,0 +1,279 @@
+" Guard against loading this twice. This does mean you cannot do:
+" source $MYVIMRC
+" to pick up changes, but that isn't usually what you want anyway (it does not
+" clear existing settings that are no longer being set).
+if ( exists('g:loaded_vimrc') && g:loaded_vimrc )
+    finish
+endif
+let g:loaded_vimrc = 1
+
+let g:NumberToggleTrigger="<leader>n"
+
+function s:Main() abort
+    call s:LoadPlugins()
+    call s:LoadKeymaps()
+    call s:LoadSettings()
+
+    " Restore cursor location
+    augroup resCur
+      au BufWinLeave * mkview
+      au VimEnter * silent loadview
+    augroup END
+    
+    autocmd! VimEnter * :call <SID>LoadCustomSettings()
+endfunction
+
+function s:LoadPlugins() abort
+    if s:CannotLoadPlugins()
+        return 0
+    endif
+
+    call s:PrepareForPluginLoad()
+
+    if s:CanInstallPluginLoader() && s:PluginLoaderMissing()
+        call s:InstallPluginLoader()
+    endif
+
+    call plug#begin('~/.vim/plugged')
+
+    call s:RegisterPlugins()
+
+    if s:PluginsMissing()
+        PlugInstall
+    endif
+
+    call plug#helptags()
+    call plug#end()
+
+    call s:ConfigurePlugins()
+
+    return 1
+endfunction
+
+function s:CannotLoadPlugins() abort
+    return version <= 701
+endfunction
+
+function s:CanInstallPluginLoader() abort
+    " Can only install the plugin loader when vim is starting
+    return has('vim_starting')
+endfunction
+
+function s:PluginLoaderMissing() abort
+    return !filereadable(expand('~/.vim/autoload/plug.vim'))
+endfunction
+
+function s:CanUsePython() abort
+    return has('python') || has('python3')
+endfunction
+
+function s:VersionSufficientToUseYouCompleteMe() abort
+    return ( v:version > 704 || ( v:version > 703 && has('patch584') ) )
+endfunction
+
+function s:PluginsMissing() abort
+    " The g:plugs map maps the plugin name to the settings for it.
+    " The most relevant setting for this is the 'dir' setting which is the
+    " destination folder.
+    " Example (truncated) output of ':echo g:plugs':
+    " {'vim-surround': {'uri': 'https://github.com/tpope/vim-surround.git', 'dir': '/home/matthew/.vim/plugged/vim-surround/', 'frozen': 0, 'branch': 'master'},...
+
+    for spec in values(g:plugs)
+        if !isdirectory(spec.dir)
+            return 1
+        endif
+    endfor
+
+    return 0
+endfunction
+
+function s:PrepareForPluginLoad() abort
+    " Fuck YouCompleteMe. Bastard!
+    let g:ycm_key_list_select_completion = []
+    let g:ycm_key_list_previous_completion = []
+
+    let g:ycm_add_preview_to_completeopt = 0
+    set completeopt=menuone
+
+    let g:NumberToggleTrigger="<leader>n"
+
+    let g:syntastic_always_populate_loc_list = 1
+
+    " Use ag for ack if it is available
+    if executable('ag')
+        let g:ackprg = 'ag --vimgrep'
+    endif
+endfunction
+
+function s:InstallPluginLoader() abort
+    echo "Installing Vim Plug.."
+    echo ""
+    silent !mkdir --parents ~/.vim/autoload
+    silent !curl --fail --location --output ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endfunction
+
+function s:RegisterPlugins() abort
+    " Each of these is registered in the g:plugs map.
+    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+    Plug 'https://github.com/Valloric/YouCompleteMe.git', { 'do': './install.py' }
+    Plug 'https://github.com/altercation/vim-colors-solarized.git'
+    Plug 'https://github.com/bronson/vim-visual-star-search'
+    Plug 'https://github.com/godlygeek/tabular.git'
+    Plug 'https://github.com/sheerun/vim-polyglot.git'
+    Plug 'https://github.com/jeffkreeftmeijer/vim-numbertoggle'
+    Plug 'https://github.com/majutsushi/tagbar.git'
+    Plug 'https://github.com/mileszs/ack.vim.git'
+    Plug 'https://github.com/scrooloose/syntastic.git'
+    Plug 'https://github.com/tpope/vim-fugitive.git'
+    Plug 'https://github.com/tpope/vim-repeat'
+    Plug 'https://github.com/tpope/vim-sensible.git'
+    Plug 'https://github.com/tpope/vim-surround.git'
+    Plug 'https://github.com/tpope/vim-unimpaired.git'
+    Plug 'https://github.com/vim-scripts/AnsiEsc.vim.git'
+    Plug 'https://github.com/vim-scripts/kwbdi.vim.git'
+endfunction
+
+function s:ConfigurePlugins() abort
+    call s:ConfigureColors()
+    call s:ConfigureMarkdown()
+    call s:ConfigureSyntastic()
+
+    if s:CanUsePython()
+        call s:ConfigurePowerline()
+    endif
+endfunction
+
+function s:ConfigureColors() abort
+    " Convince Vim it can use 256 colors inside Gnome Terminal.
+    " Needs CSApprox plugin
+    set t_Co=256
+    set background=dark
+
+    let g:solarized_termcolors = 256
+    colorscheme ron
+endfunction
+
+function s:ConfigureMarkdown() abort
+    " Set markdown filetype and spelling
+    " Required otherwise .md is modulo-2 filetype
+    autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+    autocmd BufRead,BufNewFile *.md setlocal spell
+endfunction
+
+function s:ConfigureSyntastic() abort
+    let g:syntastic_python_checkers = ['python', 'pyflakes', 'pep8', 'pylint']
+    let g:syntastic_javascript_checkers = ['eslint']
+endfunction
+
+function s:ConfigurePowerline() abort
+    set rtp+=~/.local/lib/python2.7/site-packages/powerline/bindings/vim
+endfunction
+
+function s:LoadKeymaps() abort
+    call s:LoadCustomKeymaps()
+    call s:LoadFunctionKeymaps()
+endfunction
+
+function s:LoadCustomKeymaps() abort
+    " Make mouse middle click paste without formatting it.
+    map <MouseMiddle> <Esc>"*p
+
+    " Ctrl-J now adds a newline (without going into insert), so it is the reverse
+    " of Shift-J. See:
+    " http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
+    nnoremap <C-J> a<CR><Esc>k$
+
+    " \= and \=> do :Tabularize stuff
+    nnoremap <leader>=> :Tabularize /=><CR>
+    nnoremap <leader>=  :Tabularize /=<CR>
+
+    " \p changes paste mode.
+    nnoremap <leader>p :set paste!<CR>
+endfunction
+
+function s:LoadFunctionKeymaps() abort
+    " F1 turns off highlighting for the current search
+    let hlstate=0
+    nmap <F1> :if (hlstate == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=1-hlstate<cr>
+    " F2 toggles line numbers
+    nmap <F2> :set invnumber<CR>
+    " F3
+
+    " F4 Git Blame
+    nmap <F4> :Gblame<CR>
+    " F5
+    nmap <F5> :set cursorline! cursorcolumn!<CR>
+    " F6
+
+    " F7
+
+    " F8
+
+    " F9
+
+    " F10
+
+    " F11 Remove trailing whitespace
+    nmap <F11> :%s/\s\s*$//<CR>
+    " F12
+endfunction
+
+function s:LoadSettings() abort
+    set clipboard=unnamedplus           " Allow the + register to copy between vim instances
+    set encoding=utf-8                  " Necessary to show Unicode glyphs
+    set expandtab                       " Convert tabs to spaces
+    set hidden                          " Stop the 'unsaved changes' warning when changing buffers
+    set hlsearch                        " Highlight searches. Use <F1> to turn off
+    set laststatus=2                    " Always show the statusline
+    set list listchars=tab:\ \ ,trail:· " Highlight tabs & trailing spaces
+    set modeline
+    set noswapfile                      " More annoying than useful
+    set scrolloff=5                     " Always have 5 rows around the cursor
+    set shiftwidth=4
+    set sidescrolloff=5                 " Always have 5 columns around the cursor
+    set tabstop=4
+    set linebreak                       " Perform word wrapping without breaking words
+    set ignorecase                      " Case insensitive searching
+    set smartcase                       " Unless you use case in your search
+    set cursorline                      " Underline current cursors vertical position
+    set cursorcolumn                    " Highlight current cursors horizontal
+endfunction
+
+function s:LoadFileSettings() abort
+    autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
+endfunction
+
+" Vim supports undofiles from approximately v7.3. These allow for a persistent
+" undo between sessions. Very useful!
+function s:ConfigureUndoFiles()
+    if s:CannotUseUndoFiles()
+        return
+    endif
+
+    call s:MakeUndoDirectoryIfMissing()
+
+    set undofile
+    set undodir=$HOME/.vim/undo
+    set undolevels=1000
+    set undoreload=10000
+endfunction
+
+function s:CannotUseUndoFiles()
+    return v:version < 703
+endfunction
+
+function s:MakeUndoDirectoryIfMissing()
+    let undodir=expand('~/.vim/undo')
+
+    if !isdirectory(undodir)
+        silent !mkdir -p ~/.vim/undo
+    endif
+endfunction
+
+function s:LoadCustomSettings() abort
+    if filereadable("./vimrc")
+        source ./vimrc
+    endif
+endfunction
+
+call s:Main()

@@ -3,6 +3,7 @@ host-specific-bin
 vim/.netrwhist
 irssi/config
 irssi/config.autosave
+vim/plugged
 vim/bundle
 vim/undo
 vim/view/*

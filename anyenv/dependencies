@@ -1,5 +1,0 @@
-curl
-libcurl4-openssl-dev
-libssl-dev
-libreadline-dev
-zlib1g-dev
