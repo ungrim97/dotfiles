@@ -1,4 +1,5 @@
 .*.swp
+logs/*
 host-specific-bin
 vim/.netrwhist
 irssi/config

@@ -116,7 +116,11 @@ endfunction
 function s:RegisterPlugins() abort
     " Each of these is registered in the g:plugs map.
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-    Plug 'https://github.com/Valloric/YouCompleteMe.git', { 'do': './install.py --all' }
+
+    if s:VersionSufficientToUseYouCompleteMe()
+        Plug 'https://github.com/Valloric/YouCompleteMe.git', { 'do': './install.py --all' }
+    endif
+
     Plug 'https://github.com/altercation/vim-colors-solarized.git'
     Plug 'https://github.com/bronson/vim-visual-star-search'
     Plug 'https://github.com/godlygeek/tabular.git'
