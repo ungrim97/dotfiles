@@ -98,3 +98,7 @@ get_url_to_file () {
         return 1
     fi
 }
+
+is_git_command_available () {
+    which git >/dev/null
+}

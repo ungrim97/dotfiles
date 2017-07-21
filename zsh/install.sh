@@ -14,10 +14,6 @@ install () {
     install_oh_my_zsh || return ${STATUS_ERROR}
 }
 
-is_git_command_available () {
-    which git >/dev/null
-}
-
 install_antigen () {
     local antigen_script_file="${HOME}/.antigen.zsh"
 
