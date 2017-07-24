@@ -85,9 +85,13 @@ install_ndenv () {
     anyenv install ndenv
     exec $SHELL -l
 
-    # Use latest
-    ndenv install 8.2.1
-    ndenv global 8.2.1
+    # Use latest LTS
+    ndenv install 6.9.5
+    ndenv global 6.9.5
+
+    ndenv rehash
+
+    npm insall -g ember-cli
 
     ndenv rehash
 }
