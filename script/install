@@ -123,7 +123,7 @@ suggest_issue_submission () {
     fi
 
     echo ''
-    info 'You can file an issue about this failure at https://github.com/matthewfranglen/dotfiles/issues'
+    info 'You can file an issue about this failure at https://github.com/ungrim97/dotfiles/issues'
     info "Please attach the log files in ${LOGS_FOLDER}"
 }
 
