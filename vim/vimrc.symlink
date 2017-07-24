@@ -19,7 +19,7 @@ function s:Main() abort
       au BufWinLeave * mkview
       au VimEnter * silent loadview
     augroup END
-    
+
     autocmd! VimEnter * :call <SID>LoadCustomSettings()
 endfunction
 
@@ -242,6 +242,8 @@ function s:LoadSettings() abort
     set smartcase                       " Unless you use case in your search
     set cursorline                      " Underline current cursors vertical position
     set cursorcolumn                    " Highlight current cursors horizontal
+
+    call s:ConfigureUndoFiles()
 endfunction
 
 function s:LoadFileSettings() abort
