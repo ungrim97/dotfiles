@@ -91,6 +91,10 @@ install_ndenv () {
 
     ndenv rehash
 
+    # Latest npm
+    npm install -g npm
+
+    # Always install git
     npm insall -g ember-cli
 
     ndenv rehash
