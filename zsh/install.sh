@@ -15,7 +15,7 @@ install () {
 }
 
 install_antigen () {
-    local antigen_script_file="${HOME}/.antigen.zsh"
+    local antigen_script_file="${HOME}/antigen.zsh"
 
     if [ -e "${antigen_script_file}" ]
     then
