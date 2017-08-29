@@ -198,7 +198,7 @@ endfunction
 
 function s:LoadFunctionKeymaps() abort
     " F1 turns off highlighting for the current search
-    let hlstate=0
+    let g:hlstate=0
     nmap <F1> :if (hlstate == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=1-hlstate<cr>
     " F2 toggles line numbers
     nmap <F2> :set invnumber<CR>
@@ -244,29 +244,23 @@ function s:LoadSettings() abort
     set cursorcolumn                    " Highlight current cursors horizontal
 
     call s:ConfigureUndoFiles()
+    call s:LoadFileSettings()
 endfunction
 
 function s:LoadFileSettings() abort
     autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
+    autocmd Filetype javascript.jsx setlocal ts=2 sts=2 sw=2
 endfunction
 
 " Vim supports undofiles from approximately v7.3. These allow for a persistent
 " undo between sessions. Very useful!
 function s:ConfigureUndoFiles()
-    if s:CannotUseUndoFiles()
-        return
-    endif
-
     call s:MakeUndoDirectoryIfMissing()
 
     set undofile
     set undodir=$HOME/.vim/undo
     set undolevels=1000
     set undoreload=10000
-endfunction
-
-function s:CannotUseUndoFiles()
-    return v:version < 703
 endfunction
 
 function s:MakeUndoDirectoryIfMissing()
