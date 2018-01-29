@@ -46,15 +46,13 @@ install_noti () {
         return
     fi
 
-    if [ ! -e "${LOCAL_BIN_FOLDER}" ]
-    then
-	mkdir "${LOCAL_BIN_FOLDER}"
-    fi
+    make_local_bin || return ${STATUS_ERROR}
 
-    get_url_to_file "https://github.com/variadico/noti/releases/download/v2.3.0/noti2.3.0.linux-amd64.tar.gz" "${noti_download}" || return 1
+    get_url_to_file "https://github.com/variadico/noti/releases/download/3.0.0/noti3.0.0.darwin-amd64.tar.gz" "${noti_download}" || return 1
     (
         cd "${LOCAL_BIN_FOLDER}"
         tar -xzf "${noti_download}"
+
         rm "${noti_download}"
     )
 }
