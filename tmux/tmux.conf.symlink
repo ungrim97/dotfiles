@@ -64,3 +64,4 @@ run-shell 'export PATH=$HOME/.local/bin:$PATH ; $HOME/.local/bin/powerline-confi
 
 set -g status-interval 2
 set -g status-right '#(~/.local/bin/powerline-render tmux right)'
+set -g history-limit 5000

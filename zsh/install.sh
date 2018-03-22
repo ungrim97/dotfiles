@@ -9,9 +9,14 @@ install () {
         return ${STATUS_ERROR}
     fi
 
+    install_zsh       || return ${STATUS_ERROR}
     install_antigen   || return ${STATUS_ERROR}
     install_noti      || return ${STATUS_ERROR}
     install_oh_my_zsh || return ${STATUS_ERROR}
+}
+
+install_zsh () {
+    sudo apt install zsh
 }
 
 install_antigen () {
