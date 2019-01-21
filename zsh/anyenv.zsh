@@ -1,16 +1,16 @@
 if [[ -e $HOME/.anyenv ]]; then
     export PATH="$HOME/.anyenv/bin:$PATH"
-    eval "$(anyenv init -)"
+    eval "$(anyenv init - zsh)"
 fi
 
 if [[ -e $HOME/.anyenv/envs/plenv ]]; then
-    eval "$(plenv init -)"
+    eval "$(plenv init - zsh)"
 fi
 
 if [[ -e $HOME/.anyenv/envs/rbenv ]]; then
-    eval "$(rbenv init -)"
+    eval "$(rbenv init - zsh)"
 fi
 
 if [[ -e $HOME/.anyenv/envs/ndenv ]]; then
-    eval "$(ndenv init -)"
+    eval "$(ndenv init - zsh)"
 fi
