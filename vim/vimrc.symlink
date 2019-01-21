@@ -121,6 +121,7 @@ function s:RegisterPlugins() abort
         Plug 'https://github.com/Valloric/YouCompleteMe.git', { 'do': './install.py --all' }
     endif
 
+    Plug 'https://github.com/w0rp/ale.git'
     Plug 'https://github.com/altercation/vim-colors-solarized.git'
     Plug 'https://github.com/bronson/vim-visual-star-search'
     Plug 'https://github.com/godlygeek/tabular.git'
@@ -128,7 +129,6 @@ function s:RegisterPlugins() abort
     Plug 'https://github.com/jeffkreeftmeijer/vim-numbertoggle'
     Plug 'https://github.com/majutsushi/tagbar.git'
     Plug 'https://github.com/mileszs/ack.vim.git'
-    Plug 'https://github.com/scrooloose/syntastic.git'
     Plug 'https://github.com/tpope/vim-fugitive.git'
     Plug 'https://github.com/tpope/vim-repeat'
     Plug 'https://github.com/tpope/vim-sensible.git'
@@ -136,12 +136,12 @@ function s:RegisterPlugins() abort
     Plug 'https://github.com/tpope/vim-unimpaired.git'
     Plug 'https://github.com/vim-scripts/AnsiEsc.vim.git'
     Plug 'https://github.com/vim-scripts/kwbdi.vim.git'
+    Plug 'https://github.com/prettier/vim-prettier.git'
 endfunction
 
 function s:ConfigurePlugins() abort
     call s:ConfigureColors()
     call s:ConfigureMarkdown()
-    call s:ConfigureSyntastic()
 
     if s:CanUsePython()
         call s:ConfigurePowerline()
@@ -163,11 +163,6 @@ function s:ConfigureMarkdown() abort
     " Required otherwise .md is modulo-2 filetype
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
     autocmd BufRead,BufNewFile *.md setlocal spell
-endfunction
-
-function s:ConfigureSyntastic() abort
-    let g:syntastic_python_checkers = ['python', 'pyflakes', 'pep8', 'pylint']
-    let g:syntastic_javascript_checkers = ['eslint']
 endfunction
 
 function s:ConfigurePowerline() abort
