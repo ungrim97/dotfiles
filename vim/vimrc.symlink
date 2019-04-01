@@ -244,6 +244,10 @@ function s:LoadSettings() abort
     set smartcase                       " Unless you use case in your search
     set cursorline                      " Underline current cursors vertical position
     set cursorcolumn                    " Highlight current cursors horizontal
+    set spell
+    set spelllang=en_gb
+
+    let perl_include_pod = 1
 
     call s:ConfigureUndoFiles()
     call s:LoadFileSettings()
