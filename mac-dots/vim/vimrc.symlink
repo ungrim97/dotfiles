@@ -226,7 +226,7 @@ function s:LoadFunctionKeymaps() abort
 endfunction
 
 function s:LoadSettings() abort
-    set clipboard=unnamedplus           " Allow the + register to copy between vim instances
+    set clipboard=unnamed,unnamedplus   " Allow the + register to copy between vim instances
     set encoding=utf-8                  " Necessary to show Unicode glyphs
     set expandtab                       " Convert tabs to spaces
     set hidden                          " Stop the 'unsaved changes' warning when changing buffers
@@ -242,10 +242,6 @@ function s:LoadSettings() abort
     set linebreak                       " Perform word wrapping without breaking words
     set ignorecase                      " Case insensitive searching
     set smartcase                       " Unless you use case in your search
-    set cursorline                      " Underline current cursors vertical position
-    set cursorcolumn                    " Highlight current cursors horizontal
-    set spell
-    set spelllang=en_gb
 
     let perl_include_pod = 1
 

@@ -59,7 +59,7 @@ set -g visual-activity on
 #
 # The best way to fix this is to set the PATH appropriately.
 # Remember that this command should be sh compatible so do not rely on ~ expansion.
-run-shell '/usr`/local/bin/powerline-daemon -q || true'
+run-shell '/usr/local/bin/powerline-daemon -q || true'
 run-shell '/usr/local/bin/powerline-config tmux setup >/tmp/tmux.log 2>&1 && rm /tmp/tmux.log'
 
 set -g status-interval 2

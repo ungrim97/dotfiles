@@ -3,6 +3,7 @@
     email = ungrim97@gmail.com
 [core]
     editor = vim
+	pager = less -x1,5
 [pull]
     ff = true
 [merge]

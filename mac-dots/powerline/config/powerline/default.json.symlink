@@ -1,4 +1,7 @@
 {
+    "common": {
+        "log_file": "/tmp/powerline.log"
+    },
     "segments": {
         "right": [
             {
