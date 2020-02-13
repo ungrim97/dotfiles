@@ -3,9 +3,14 @@ dot files
 
 This is my current set of dotfiles.
 
+Requires Python 3
+
 
 Installation
 ------------
+
+	mac-dots/script/bootstrap
+	mac-dots/script/install
 
 The install command allows them to be easily installed on any machine.
 The install command does not delete any files, and will indicate any

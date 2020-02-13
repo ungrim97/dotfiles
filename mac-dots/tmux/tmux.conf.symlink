@@ -43,6 +43,7 @@ set -g base-index 1
 
 # Automatically set window title when using a command
 setw -g automatic-rename
+setw -g automatic-rename-format '#{b:pane_current_path}'
 
 # Show window activity
 # Monitoring all activity is a bit much for things like irssi.
@@ -65,3 +66,6 @@ run-shell '/usr/local/bin/powerline-config tmux setup >/tmp/tmux.log 2>&1 && rm 
 set -g status-interval 2
 set -g status-right '#(/usr/local/bin/powerline-render tmux right)'
 set -g history-limit 5000
+set -g escape-time 10
+set -g default-terminal "tmux-256color"
+set -a terminal-overrides ',xterm-256color:RGB'

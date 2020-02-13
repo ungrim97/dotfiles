@@ -7,20 +7,11 @@ if ( exists('g:loaded_vimrc') && g:loaded_vimrc )
 endif
 let g:loaded_vimrc = 1
 
-let g:NumberToggleTrigger="<leader>n"
-
 function s:Main() abort
     call s:LoadPlugins()
     call s:LoadKeymaps()
     call s:LoadSettings()
 
-    " Restore cursor location
-    augroup resCur
-      au BufWinLeave * mkview
-      au VimEnter * silent loadview
-    augroup END
-
-    autocmd! VimEnter * :call <SID>LoadCustomSettings()
 endfunction
 
 function s:LoadPlugins() abort
@@ -30,19 +21,16 @@ function s:LoadPlugins() abort
 
     call s:PrepareForPluginLoad()
 
-    if s:CanInstallPluginLoader() && s:PluginLoaderMissing()
+    if s:PluginLoaderMissing()
         call s:InstallPluginLoader()
     endif
 
-    call plug#begin('~/.vim/plugged')
+    call plug#begin()
 
     call s:RegisterPlugins()
 
-    if s:PluginsMissing()
-        PlugInstall
-    endif
+    call s:InstallPlugins()
 
-    call plug#helptags()
     call plug#end()
 
     call s:ConfigurePlugins()
@@ -56,13 +44,8 @@ function s:CannotLoadPlugins() abort
     return version <= 701
 endfunction
 
-function s:CanInstallPluginLoader() abort
-    " Can only install the plugin loader when vim is starting
-    return has('vim_starting')
-endfunction
-
 function s:PluginLoaderMissing() abort
-    return !filereadable(expand('~/.vim/autoload/plug.vim'))
+    return !filereadable(expand('~/.local/share/nvim/site/autoload/plug.vim'))
 endfunction
 
 function s:CanUsePython() abort
@@ -73,7 +56,7 @@ function s:VersionSufficientToUseYouCompleteMe() abort
     return ( v:version > 704 || ( v:version > 703 && has('patch584') ) )
 endfunction
 
-function s:PluginsMissing() abort
+function s:InstallPlugins() abort
     " The g:plugs map maps the plugin name to the settings for it.
     " The most relevant setting for this is the 'dir' setting which is the
     " destination folder.
@@ -82,98 +65,101 @@ function s:PluginsMissing() abort
 
     for spec in values(g:plugs)
         if !isdirectory(spec.dir)
-            return 1
+            PlugInstall
+            return
         endif
     endfor
 
-    return 0
+    return
 endfunction
 
 function s:PrepareForPluginLoad() abort
-    " Fuck YouCompleteMe. Bastard!
-    let g:ycm_key_list_select_completion = []
-    let g:ycm_key_list_previous_completion = []
-    let g:ycm_server_python_interpreter = '/usr/bin/python'
-
-    let g:ycm_add_preview_to_completeopt = 0
-    set completeopt=menuone
-
-    let g:NumberToggleTrigger="<leader>n"
-
-    let g:syntastic_always_populate_loc_list = 1
-
-    " Use ag for ack if it is available
-    if executable('ag')
-        let g:ackprg = 'ag --vimgrep'
-    endif
 endfunction
 
 function s:InstallPluginLoader() abort
     echo "Installing Vim Plug.."
     echo ""
-    silent !mkdir --parents ~/.vim/autoload
-    silent !curl --fail --location --output ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    silent !mkdir --parents ~/.local/share/nvim/site/autoload
+    silent !curl --fail --location --output ~/.local/share/nvim/site/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endfunction
 
 function s:RegisterPlugins() abort
     " Each of these is registered in the g:plugs map.
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
-    if s:VersionSufficientToUseYouCompleteMe()
-        Plug 'https://github.com/Valloric/YouCompleteMe.git', { 'do': './install.py --all' }
-    endif
-
-    Plug 'https://github.com/w0rp/ale.git'
-    Plug 'https://github.com/altercation/vim-colors-solarized.git'
+    " Visual Select search
     Plug 'https://github.com/bronson/vim-visual-star-search'
+
+    " Line up code
     Plug 'https://github.com/godlygeek/tabular.git'
+
+    " Language Packs
     Plug 'https://github.com/sheerun/vim-polyglot.git'
-    Plug 'https://github.com/jeffkreeftmeijer/vim-numbertoggle'
-    Plug 'https://github.com/majutsushi/tagbar.git'
-    Plug 'https://github.com/mileszs/ack.vim.git'
+
+    " Git commands (e.g. :GBlame)
     Plug 'https://github.com/tpope/vim-fugitive.git'
+
+    " Git diff in gutter
+    Plug 'airblade/vim-gitgutter'
+
+    " Support use of . in Surround plugin
     Plug 'https://github.com/tpope/vim-repeat'
+
+    " Standard defaults
     Plug 'https://github.com/tpope/vim-sensible.git'
+
+    " Easy manipulation of surround chars e.g () {} []
     Plug 'https://github.com/tpope/vim-surround.git'
-    Plug 'https://github.com/tpope/vim-unimpaired.git'
+
+    " Handle ANSI Character handling
     Plug 'https://github.com/vim-scripts/AnsiEsc.vim.git'
-    Plug 'https://github.com/vim-scripts/kwbdi.vim.git'
-    Plug 'https://github.com/prettier/vim-prettier.git'
+
+    " Set indentation automagically
+    Plug 'https://github.com/tpope/vim-sleuth.git'
+
+    " Airline (Its faster than powerline in vim)
+    Plug 'vim-airline/vim-airline'
+
+    " File Tree
+    Plug 'preservim/nerdtree'
+
+    " LSP Support (Completion, GOTO Definition etc)
+    Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
+
+    " Some themes for airline and bufferline
+    Plug 'vim-airline/vim-airline-themes'
+
+    " Themes for vim
+    Plug 'rafi/awesome-vim-colorschemes'
+
 endfunction
 
 function s:ConfigurePlugins() abort
-    call s:ConfigureColors()
+    " Coc Extentions
+    let g:coc_global_extensions=['coc-json', 'coc-tsserver', 'coc-html', 'coc-css', 'coc-eslint', 'coc-prettier']
 
-    if s:CanUsePython()
-        call s:ConfigurePowerline()
-    endif
-endfunction
+    " Coc config
+    set shortmess+=c
+    set cmdheight=2
+    set updatetime=300
 
-function s:ConfigureColors() abort
-    " Convince Vim it can use 256 colors inside Gnome Terminal.
-    " Needs CSApprox plugin
-    set t_Co=256
-    set background=dark
+    " Highlight symbol under cursor on CursorHold
+    autocmd CursorHold * silent call CocActionAsync('highlight')
 
-    let g:solarized_termcolors = 256
-    colorscheme ron
-endfunction
-
-function s:ConfigureMarkdown() abort
-    " Set markdown filetype and spelling
-    " Required otherwise .md is modulo-2 filetype
-    autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-    autocmd BufRead,BufNewFile *.md setlocal spell
+    " Airline
+    let g:airline_powerline_fonts = 0
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#fugutive#enabled = 1
+    let g:airline#extensions#coc#enabled = 1
 endfunction
 
 function s:ConfigureCustomFiletypes() abort
+    " Set all .t files to be perl type
     autocmd BufNewFile,BufReadPost *.t set filetype=perl
 
-    call s:ConfigureMarkdown()
-endfunction
-
-function s:ConfigurePowerline() abort
-    set rtp+=~/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim
+    " Set markdown filetype and spelling
+    " Required otherwise .md is modulo-2 filetype
+    autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 endfunction
 
 function s:LoadKeymaps() abort
@@ -196,20 +182,37 @@ function s:LoadCustomKeymaps() abort
 
     " \p changes paste mode.
     nnoremap <leader>p :set paste!<CR>
+
+    " Map for rename current word
+    nmap <silent>rn <Plug>(coc-rename)
+
+    " Map keys for gotos
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+
+    autocmd CursorHold * silent :call CocActionAsync('doHover')
+
 endfunction
 
 function s:LoadFunctionKeymaps() abort
     " F1 turns off highlighting for the current search
     let g:hlstate=0
     nmap <F1> :if (hlstate == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=1-hlstate<cr>
-    " F2 toggles line numbers
-    nmap <F2> :set invnumber<CR>
+
+    " F2 Run linter fixup
+    nmap <F2> <Plug>(coc-fix-current)
+
     " F3
+    nmap <silent> <F3> <Plug>(coc-definition)
 
     " F4 Git Blame
     nmap <F4> :Gblame<CR>
-    " F5
+
+    " F5 toggles Cursorline and Cursorcolum markers
     nmap <F5> :set cursorline! cursorcolumn!<CR>
+
     " F6
 
     " F7
@@ -219,16 +222,20 @@ function s:LoadFunctionKeymaps() abort
     " F9
 
     " F10
+    nmap <F10> :NERDTreeToggle<CR>
 
     " F11 Remove trailing whitespace
     nmap <F11> :%s/\s\s*$//<CR>
+
     " F12
 endfunction
 
 function s:LoadSettings() abort
+    colorscheme challenger_deep
+
+    set termguicolors                   " Set true colour
     set clipboard=unnamed,unnamedplus   " Allow the + register to copy between vim instances
     set encoding=utf-8                  " Necessary to show Unicode glyphs
-    set expandtab                       " Convert tabs to spaces
     set hidden                          " Stop the 'unsaved changes' warning when changing buffers
     set hlsearch                        " Highlight searches. Use <F1> to turn off
     set laststatus=2                    " Always show the statusline
@@ -236,50 +243,44 @@ function s:LoadSettings() abort
     set modeline
     set noswapfile                      " More annoying than useful
     set scrolloff=5                     " Always have 5 rows around the cursor
-    set shiftwidth=4
     set sidescrolloff=5                 " Always have 5 columns around the cursor
-    set tabstop=4
     set linebreak                       " Perform word wrapping without breaking words
     set ignorecase                      " Case insensitive searching
     set smartcase                       " Unless you use case in your search
+    set mouse=a                         " Support mouse usage
 
     let perl_include_pod = 1
 
+    " Allow // comments in JSON files (jsonc)
+    autocmd FileType json syntax match Comment +\/\/.\+$+
+
     call s:ConfigureUndoFiles()
-    call s:LoadFileSettings()
+
+    " Restore cursor location
+    augroup resCur
+      au BufWinLeave * mkview
+      au VimEnter * silent! loadview
+    augroup END
 endfunction
 
-function s:LoadFileSettings() abort
-    autocmd Filetype json setlocal ts=2 sts=2 sw=2
-    autocmd Filetype html setlocal ts=2 sts=2 sw=2
-    autocmd Filetype typescript setlocal ts=2 sts=2 sw=2
-    autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
-    autocmd Filetype javascript.jsx setlocal ts=2 sts=2 sw=2
-endfunction
-
-" Vim supports undofiles from approximately v7.3. These allow for a persistent
-" undo between sessions. Very useful!
+" Persistent undo between sessions. Very useful!
 function s:ConfigureUndoFiles()
     call s:MakeUndoDirectoryIfMissing()
 
     set undofile
-    set undodir=$HOME/.vim/undo
+    set undodir=$HOME/.local/share/nvim/undo
     set undolevels=1000
     set undoreload=10000
 endfunction
 
 function s:MakeUndoDirectoryIfMissing()
-    let undodir=expand('~/.vim/undo')
+    let undodir=expand('~/.local/share/nvim/undo')
 
     if !isdirectory(undodir)
-        silent !mkdir -p ~/.vim/undo
-    endif
-endfunction
-
-function s:LoadCustomSettings() abort
-    if filereadable("./vimrc")
-        source ./vimrc
+        silent !mkdir -p ~/.local/share/nvim/undo
     endif
 endfunction
 
 call s:Main()
+
+" vi:filetype=vim

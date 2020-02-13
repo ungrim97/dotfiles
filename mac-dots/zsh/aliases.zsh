@@ -14,4 +14,5 @@ alias ack='ack-grep'
 alias sst='svn status'
 alias sup='svn up'
 
+alias vi='nvim'
 # vim: set ai et sw=4 syntax=zsh :
