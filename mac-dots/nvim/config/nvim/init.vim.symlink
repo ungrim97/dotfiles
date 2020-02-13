@@ -88,34 +88,34 @@ function s:RegisterPlugins() abort
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
     " Visual Select search
-    Plug 'https://github.com/bronson/vim-visual-star-search'
+    Plug 'bronson/vim-visual-star-search'
 
     " Line up code
-    Plug 'https://github.com/godlygeek/tabular.git'
+    Plug 'godlygeek/tabular'
 
     " Language Packs
-    Plug 'https://github.com/sheerun/vim-polyglot.git'
+    Plug 'sheerun/vim-polyglot'
 
     " Git commands (e.g. :GBlame)
-    Plug 'https://github.com/tpope/vim-fugitive.git'
+    Plug 'tpope/vim-fugitive'
 
     " Git diff in gutter
     Plug 'airblade/vim-gitgutter'
 
     " Support use of . in Surround plugin
-    Plug 'https://github.com/tpope/vim-repeat'
+    Plug 'tpope/vim-repeat'
 
     " Standard defaults
-    Plug 'https://github.com/tpope/vim-sensible.git'
+    Plug 'tpope/vim-sensible'
 
     " Easy manipulation of surround chars e.g () {} []
-    Plug 'https://github.com/tpope/vim-surround.git'
+    Plug 'tpope/vim-surround'
 
     " Handle ANSI Character handling
-    Plug 'https://github.com/vim-scripts/AnsiEsc.vim.git'
+    Plug 'vim-scripts/AnsiEsc.vim'
 
     " Set indentation automagically
-    Plug 'https://github.com/tpope/vim-sleuth.git'
+    Plug 'tpope/vim-sleuth'
 
     " Airline (Its faster than powerline in vim)
     Plug 'vim-airline/vim-airline'

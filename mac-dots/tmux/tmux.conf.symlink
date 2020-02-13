@@ -67,5 +67,5 @@ set -g status-interval 2
 set -g status-right '#(/usr/local/bin/powerline-render tmux right)'
 set -g history-limit 5000
 set -g escape-time 10
-set -g default-terminal "tmux-256color"
+set -g default-terminal "xterm-256color"
 set -a terminal-overrides ',xterm-256color:RGB'
