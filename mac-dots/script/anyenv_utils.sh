@@ -5,18 +5,18 @@ set -eu
 ANYENV_BASE="${HOME}/.anyenv"
 export PATH="${ANYENV_BASE}/bin:$PATH"
 
-install () {
+_install () {
     if ! is_git_command_available
     then
         echo "Unable to install anyenv... git command not found" >&2
         return ${STATUS_ERROR}
     fi
 
-    install_anyenv  || return ${STATUS_ERROR}
-    install_plugins || return ${STATUS_ERROR}
+    _install_anyenv  || return ${STATUS_ERROR}
+    _install_plugins || return ${STATUS_ERROR}
 }
 
-install_anyenv () {
+_install_anyenv () {
     if [ -e "${ANYENV_BASE}" ]
     then
         if [ -e "${ANYENV_BASE}/plugins/anyenv-update" ]
@@ -31,7 +31,7 @@ install_anyenv () {
     anyenv install --init
 }
 
-install_plugins () {
+_install_plugins () {
     if [ ! -e "${ANYENV_BASE}/plugins" ]
     then
         mkdir "${ANYENV_BASE}/plugins"
@@ -39,15 +39,28 @@ install_plugins () {
 
     if [ ! -e "${ANYENV_BASE}/plugins/anyenv-update" ]
     then
-    	echo "Fetching anyenv-update"
+        echo "Fetching anyenv-update"
         git clone --depth 1 https://github.com/znz/anyenv-update.git "${ANYENV_BASE}/plugins/anyenv-update"
     fi
 
     if [ ! -e "${ANYENV_BASE}/plugins/anyenv-git" ]
     then
-    	echo "Fetching anyenv-git"
+        echo "Fetching anyenv-git"
         git clone --depth 1 https://github.com/znz/anyenv-git.git "${ANYENV_BASE}/plugins/anyenv-git"
     fi
 }
 
-install
+install_env () {
+    _install
+
+    if [ -e "${ANYENV_BASE}/envs/${1}" ]
+    then
+        return
+    fi
+
+    anyenv install $1
+    latest=$($1 install --list | grep -v - | grep -v b | tail -1)
+
+    $1 install $latest
+    $1 global $latest
+}

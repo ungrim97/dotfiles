@@ -4,21 +4,11 @@
 
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
-install_homebrew () {
-  if [ ! $(which brew) ]
-  then
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep
-  fi
-}
-
-install_homebrew
-
+# Import lib.sh utils
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
+. "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/anyenv_utils.sh"
 
 set -e
-
-echo ''
 
 link_file () {
   local src=$1 dst=$2
@@ -106,6 +96,21 @@ install_dotfiles () {
   done
 }
 
+install_apps () {
+  . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/install"
+}
+
+install_homebrew () {
+  if [ ! $(which brew) ]
+  then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep
+  fi
+}
+
+install_homebrew
+install_env 'pyenv'
+install_apps
 install_dotfiles
 
 echo ''

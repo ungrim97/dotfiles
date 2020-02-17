@@ -50,36 +50,6 @@ make_local_bin () {
     fi
 }
 
-install_pip () {
-    local get_pip_file="/tmp/get-pip.py"
-
-    PIP_COMMAND="`which pip`"
-    if [ $? -eq 0 ]
-    then
-        return
-    fi
-
-    get_url_to_file "https://bootstrap.pypa.io/get-pip.py" "${get_pip_file}" || return 1
-
-    python "${get_pip_file}" --user
-    local status=$?
-    rm "${get_pip_file}"
-
-    if [ ${status} -eq 0 ]
-    then
-        if which pip >/dev/null
-        then
-            PIP_COMMAND="`which pip`"
-        else
-            PIP_COMMAND="${LOCAL_BIN_FOLDER}/pip"
-        fi
-    else
-        PIP_COMMAND="/bin/false"
-    fi
-
-    return $status
-}
-
 is_python_command_available () {
     which python >/dev/null
 }

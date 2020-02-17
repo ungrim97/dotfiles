@@ -1,1 +1,4 @@
-brew install neovim
+if [ ! $(which nvim) ]
+then
+    brew install nvim
+fi

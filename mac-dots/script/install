@@ -30,6 +30,7 @@ main () {
 run_installers () {
     local count=0
     local -a installers=($(find . -name install.sh))
+    echo "Found installers for ${installers[@]}"
 
     for installer in "${installers[@]}"
     do

@@ -3,6 +3,11 @@ set -eu
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 
 install () {
+    if [ -e /bin/zsh ]
+    then
+        return
+    fi
+
     if ! is_git_command_available
     then
         echo "Unable to install zsh... git command not found" >&2
