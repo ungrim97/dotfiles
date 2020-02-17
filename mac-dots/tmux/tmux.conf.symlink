@@ -1,5 +1,8 @@
 # Initial config from: http://blog.hawkhost.com/2010/06/28/tmux-the-terminal-multiplexer/
 
+# Import tmuxline config (Generated via :TmuxlineSnapshot! ~/dotfiles/mac-dots/tmux/tmuxline.conf.symlink in vim)
+if-shell "test -f ${HOME}/.tmuxline.conf" "source ${HOME}/.tmuxline.conf"
+
 # First, lets make it like screen (eugh). Kinda dirty, but the ctrl-b binding is just dumb.
 # It is too much of a contortion for something that is used that often
 set -g prefix C-a
@@ -51,21 +54,9 @@ setw -g automatic-rename-format '#{b:pane_current_path}'
 # setw -g monitor-activity on
 set -g visual-activity on
 
-# tmux powerline configuration
-# If you have problems with this then consult the /tmp/tmux.log file.
-#
-# If the problem is "protocol version mismatch" then the tmux server is running
-# a different version than the client. This can happen when you have compiled
-# your own version of tmux but the run-shell command uses the system tmux.
-#
-# The best way to fix this is to set the PATH appropriately.
-# Remember that this command should be sh compatible so do not rely on ~ expansion.
-run-shell '/usr/local/bin/powerline-daemon -q || true'
-run-shell '/usr/local/bin/powerline-config tmux setup >/tmp/tmux.log 2>&1 && rm /tmp/tmux.log'
-
 set -g status-interval 2
 set -g status-right '#(/usr/local/bin/powerline-render tmux right)'
 set -g history-limit 5000
 set -g escape-time 10
-set -g default-terminal "xterm-256color"
-set -a terminal-overrides ',xterm-256color:RGB'
+set -g default-terminal "screen-256color"
+set -a terminal-overrides ',screen-256color:RGB'

@@ -12,7 +12,6 @@ STATUS_ERROR=2
 
 LOCAL_BIN_FOLDER="${HOME}/.local/bin"
 DOTFILES_FOLDER="`dirname \`dirname \\\`readlink -f $0\\\`\``"
-echo $DOTFILES_FOLDER
 LOGS_FOLDER="${DOTFILES_FOLDER}/logs"
 
 STDOUT_LOGFILE="${LOGS_FOLDER}/install.log"
@@ -48,10 +47,6 @@ make_local_bin () {
     then
         mkdir -p "${LOCAL_BIN_FOLDER}"
     fi
-}
-
-is_python_command_available () {
-    which python >/dev/null
 }
 
 get_url_to_file () {

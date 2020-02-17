@@ -118,7 +118,7 @@ function s:RegisterPlugins() abort
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
     " Themes for vim
-    Plug 'rafi/awesome-vim-colorschemes'
+    Plug 'flazz/vim-colorschemes'
 
     " Code Comment util
     Plug 'preservim/nerdcommenter'
@@ -128,6 +128,9 @@ function s:RegisterPlugins() abort
 
     " Function info
     Plug 'majutsushi/tagbar'
+
+    " Tmuxline
+    Plug 'edkolev/tmuxline.vim'
 
 endfunction
 
@@ -145,6 +148,7 @@ function s:ConfigurePlugins() abort
     " Airline
     let g:airline_powerline_fonts = 1
     let g:airline_skip_empty_sections = 1
+    let g:airline_theme = 'badwolf'
 
     " NERDCommenter
     " Add spaces after comment delimiters by default
@@ -239,7 +243,7 @@ function s:LoadFunctionKeymaps() abort
 endfunction
 
 function s:LoadSettings() abort
-    colorscheme wombat256mod
+    colorscheme wombat256
 
     set termguicolors                   " Set true colour
     set clipboard=unnamed,unnamedplus   " Allow the + register to copy between vim instances

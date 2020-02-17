@@ -109,7 +109,7 @@ install_homebrew () {
 }
 
 install_homebrew
-install_env 'pyenv'
+install_anyenv
 install_apps
 install_dotfiles
 

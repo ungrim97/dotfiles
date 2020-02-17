@@ -5,18 +5,13 @@ set -eu
 ANYENV_BASE="${HOME}/.anyenv"
 export PATH="${ANYENV_BASE}/bin:$PATH"
 
-_install () {
+install_anyenv () {
     if ! is_git_command_available
     then
         echo "Unable to install anyenv... git command not found" >&2
         return ${STATUS_ERROR}
     fi
 
-    _install_anyenv  || return ${STATUS_ERROR}
-    _install_plugins || return ${STATUS_ERROR}
-}
-
-_install_anyenv () {
     if [ -e "${ANYENV_BASE}" ]
     then
         if [ -e "${ANYENV_BASE}/plugins/anyenv-update" ]
@@ -29,6 +24,9 @@ _install_anyenv () {
     echo "Installing anyenv"
     git clone --depth 1 https://github.com/riywo/anyenv $ANYENV_BASE
     anyenv install --init
+
+    _install_plugins || return ${STATUS_ERROR}
+
 }
 
 _install_plugins () {
@@ -48,19 +46,4 @@ _install_plugins () {
         echo "Fetching anyenv-git"
         git clone --depth 1 https://github.com/znz/anyenv-git.git "${ANYENV_BASE}/plugins/anyenv-git"
     fi
-}
-
-install_env () {
-    _install
-
-    if [ -e "${ANYENV_BASE}/envs/${1}" ]
-    then
-        return
-    fi
-
-    anyenv install $1
-    latest=$($1 install --list | grep -v - | grep -v b | tail -1)
-
-    $1 install $latest
-    $1 global $latest
 }
