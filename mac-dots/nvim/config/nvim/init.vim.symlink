@@ -41,19 +41,9 @@ function s:LoadPlugins() abort
 endfunction
 
 function s:CannotLoadPlugins() abort
-    return version <= 701
 endfunction
 
 function s:PluginLoaderMissing() abort
-    return !filereadable(expand('~/.local/share/nvim/site/autoload/plug.vim'))
-endfunction
-
-function s:CanUsePython() abort
-    return has('python') || has('python3')
-endfunction
-
-function s:VersionSufficientToUseYouCompleteMe() abort
-    return ( v:version > 704 || ( v:version > 703 && has('patch584') ) )
 endfunction
 
 function s:InstallPlugins() abort
@@ -118,19 +108,26 @@ function s:RegisterPlugins() abort
     Plug 'tpope/vim-sleuth'
 
     " Airline (Its faster than powerline in vim)
-    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline', {'branch': 'master'}
+    Plug 'vim-airline/vim-airline-themes'
 
     " File Tree
     Plug 'preservim/nerdtree'
 
     " LSP Support (Completion, GOTO Definition etc)
-    Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
-
-    " Some themes for airline and bufferline
-    Plug 'vim-airline/vim-airline-themes'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
     " Themes for vim
     Plug 'rafi/awesome-vim-colorschemes'
+
+    " Code Comment util
+    Plug 'preservim/nerdcommenter'
+
+    " Tmux syntax stuff
+    Plug 'tmux-plugins/vim-tmux'
+
+    " Function info
+    Plug 'majutsushi/tagbar'
 
 endfunction
 
@@ -140,17 +137,28 @@ function s:ConfigurePlugins() abort
 
     " Coc config
     set shortmess+=c
-    set cmdheight=2
     set updatetime=300
 
     " Highlight symbol under cursor on CursorHold
     autocmd CursorHold * silent call CocActionAsync('highlight')
 
     " Airline
-    let g:airline_powerline_fonts = 0
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#fugutive#enabled = 1
-    let g:airline#extensions#coc#enabled = 1
+    let g:airline_powerline_fonts = 1
+    let g:airline_skip_empty_sections = 1
+
+    " NERDCommenter
+    " Add spaces after comment delimiters by default
+    let g:NERDSpaceDelims = 1
+
+    " Align line-wise comment delimiters flush left instead of following code indentation
+    let g:NERDDefaultAlign = 'left'
+
+
+    " Enable trimming of trailing whitespace when uncommenting
+    let g:NERDTrimTrailingWhitespace = 1
+
+    " Enable NERDCommenterToggle to check all selected lines is commented or not
+    let g:NERDToggleCheckAllLines = 1
 endfunction
 
 function s:ConfigureCustomFiletypes() abort
@@ -231,7 +239,7 @@ function s:LoadFunctionKeymaps() abort
 endfunction
 
 function s:LoadSettings() abort
-    colorscheme challenger_deep
+    colorscheme wombat256mod
 
     set termguicolors                   " Set true colour
     set clipboard=unnamed,unnamedplus   " Allow the + register to copy between vim instances

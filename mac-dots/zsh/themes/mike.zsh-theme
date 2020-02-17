@@ -74,6 +74,8 @@ prompt_end() {
   CURRENT_BG=''
 }
 
+# bloo
+#
 ### Prompt components
 # Each component will draw itself, and hide itself if no information needs to be shown
 

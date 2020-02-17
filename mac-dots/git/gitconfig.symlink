@@ -2,8 +2,8 @@
     name = Mike Eve
     email = ungrim97@gmail.com
 [core]
-    editor = vim
-	pager = less -x1,5
+    editor = vi
+    pager = less -x1,5
 [pull]
     ff = true
 [merge]
@@ -18,4 +18,4 @@
 [push]
     default = upstream
 [gitflow "feature.finish"]
-	no-ff = true
+    no-ff = true
