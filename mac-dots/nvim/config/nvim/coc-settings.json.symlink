@@ -1,3 +1,12 @@
 {
+  // Open definitions etc in new tab
   "coc.preferences.jumpCommand": "tab drop",
+  // Show diagnotics for line not position
+  "diagnostic.checkCurrentLine": true,
+  // Show diag in virtual text
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextLines": 1,
+  // Remove suggestionActions suggestions (Bug suggesting ES6 modules erroneously)
+  "typescript.suggestionActions.enabled": false,
+  "javascript.suggestionActions.enabled": false
 }

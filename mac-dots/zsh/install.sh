@@ -18,6 +18,7 @@ install () {
     install_antigen   || return ${STATUS_ERROR}
     install_noti      || return ${STATUS_ERROR}
     install_oh_my_zsh || return ${STATUS_ERROR}
+    install_theme
 }
 
 install_zsh () {
@@ -67,6 +68,15 @@ install_noti () {
 
         rm "${noti_download}"
     )
+}
+
+install_theme () {
+    if [ -e "${HOME}/.oh-my-zsh/themes/powerlevel9k" ]
+    then
+        return
+    fi
+
+    git clone "https://github.com/bhilburn/powerlevel9k.git" "~/.oh-my-zsh/themes/powerlevel9k"
 }
 
 install

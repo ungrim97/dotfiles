@@ -8,7 +8,7 @@ PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/anyenv_utils.sh"
 
-set -e
+set -eu
 
 link_file () {
   local src=$1 dst=$2
@@ -108,8 +108,21 @@ install_homebrew () {
   fi
 }
 
+install_node () {
+  if [ $(which node) ]
+  then
+    return
+  fi
+
+  install_env nodenv
+  install_env_plugin 'https://github.com/nodenv/node-build.git' 'node-build' 'nodenv'
+  nodenv latest install
+  nodenv latest global
+}
+
 install_homebrew
 install_anyenv
+install_node
 install_apps
 install_dotfiles
 

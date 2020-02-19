@@ -30,20 +30,40 @@ install_anyenv () {
 }
 
 _install_plugins () {
-    if [ ! -e "${ANYENV_BASE}/plugins" ]
+    install_env_plugin 'https://github.com/znz/anyenv-update.git' 'anyenv-update'
+    install_env_plugin 'https://github.com/znz/anyenv-git.git' 'anyenv-git'
+}
+
+install_env_plugin () {
+    plugin_dir="${ANYENV_BASE}/plugins"
+
+    if [ $3 ]
     then
-        mkdir "${ANYENV_BASE}/plugins"
+        plugin_dir="${ANYENV_BASE}/envs/$3/plugins/"
     fi
 
-    if [ ! -e "${ANYENV_BASE}/plugins/anyenv-update" ]
+    if [ ! -e $plugin_dir ]
     then
-        echo "Fetching anyenv-update"
-        git clone --depth 1 https://github.com/znz/anyenv-update.git "${ANYENV_BASE}/plugins/anyenv-update"
+        mkidr -p $plugin_dir
     fi
 
-    if [ ! -e "${ANYENV_BASE}/plugins/anyenv-git" ]
+    if [ -e "${plugin_dir}/${2}" ]
     then
-        echo "Fetching anyenv-git"
-        git clone --depth 1 https://github.com/znz/anyenv-git.git "${ANYENV_BASE}/plugins/anyenv-git"
+        return
     fi
+
+    echo "Fetching $2"
+    git clone --depth 1 $1 "${plugin_dir}/${2}"
+}
+
+install_env () {
+    install_anyenv
+
+    if [ -e "${ANYENV_BASE}/envs/${1}" ]
+    then
+        return
+    fi
+
+    anyenv install $1
+    install_env_plugin 'https://github.com/momo-lab/xxenv-latest.git' 'xxenv-latest' $1
 }

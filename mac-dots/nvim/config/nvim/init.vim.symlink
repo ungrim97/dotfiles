@@ -132,11 +132,15 @@ function s:RegisterPlugins() abort
     " Tmuxline
     Plug 'edkolev/tmuxline.vim'
 
+    " Better folding
+    Plug 'pseewald/vim-anyfold'
+    Plug 'arecarn/vim-fold-cycle'
+    Plug 'michaeljsmith/vim-indent-object'
 endfunction
 
 function s:ConfigurePlugins() abort
     " Coc Extentions
-    let g:coc_global_extensions=['coc-json', 'coc-tsserver', 'coc-html', 'coc-css', 'coc-eslint', 'coc-prettier']
+    let g:coc_global_extensions=['coc-json', 'coc-tsserver', 'coc-html', 'coc-css', 'coc-eslint', 'coc-prettier', 'coc-highlight']
 
     " Coc config
     set shortmess+=c
@@ -146,6 +150,7 @@ function s:ConfigurePlugins() abort
     autocmd CursorHold * silent call CocActionAsync('highlight')
 
     " Airline
+    let g:airline#extensions#coc#enabled = 1
     let g:airline_powerline_fonts = 1
     let g:airline_skip_empty_sections = 1
     let g:airline_theme = 'badwolf'
@@ -163,6 +168,12 @@ function s:ConfigurePlugins() abort
 
     " Enable NERDCommenterToggle to check all selected lines is commented or not
     let g:NERDToggleCheckAllLines = 1
+
+    " Folding
+    filetype plugin indent on
+    syntax on
+    autocmd FileType * AnyFoldActivate
+    autocmd User anyfoldLoaded normal zv
 endfunction
 
 function s:ConfigureCustomFiletypes() abort
@@ -189,8 +200,8 @@ function s:LoadCustomKeymaps() abort
     nnoremap <C-J> a<CR><Esc>k$
 
     " \= and \=> do :Tabularize stuff
-    nnoremap <leader>=> :Tabularize /=><CR>
-    nnoremap <leader>=  :Tabularize /=<CR>
+    noremap <leader>=> :Tabularize /=><CR>
+    noremap <leader>=  :Tabularize /=<CR>
 
     " \p changes paste mode.
     nnoremap <leader>p :set paste!<CR>
@@ -205,7 +216,6 @@ function s:LoadCustomKeymaps() abort
     nmap <silent> gr <Plug>(coc-references)
 
     autocmd CursorHold * silent :call CocActionAsync('doHover')
-
 endfunction
 
 function s:LoadFunctionKeymaps() abort
@@ -217,7 +227,7 @@ function s:LoadFunctionKeymaps() abort
     nmap <F2> <Plug>(coc-fix-current)
 
     " F3
-    nmap <silent> <F3> <Plug>(coc-definition)
+    nmap <F3> <Plug>(coc-definition)
 
     " F4 Git Blame
     nmap <F4> :Gblame<CR>
@@ -244,6 +254,9 @@ endfunction
 
 function s:LoadSettings() abort
     colorscheme wombat256
+
+    " Match EndOfBuffer colour to colourscheme
+    highlight EndOfBuffer guibg=0 ctermbg=0
 
     set termguicolors                   " Set true colour
     set clipboard=unnamed,unnamedplus   " Allow the + register to copy between vim instances
