@@ -3,11 +3,6 @@ set -eu
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 
 install () {
-    if [ -e /bin/zsh ]
-    then
-        return
-    fi
-
     if ! is_git_command_available
     then
         echo "Unable to install zsh... git command not found" >&2
@@ -22,6 +17,11 @@ install () {
 }
 
 install_zsh () {
+    if [ -e /bin/zsh ]
+    then
+        return
+    fi
+
     brew install zsh
     echo /usr/local/bin/zsh | sudo tee -a /etc/shells > /dev/null
     chsh -s /usr/local/bin/zsh
@@ -39,6 +39,11 @@ install_antigen () {
 }
 
 install_oh_my_zsh () {
+    if [ -f ~/.oh-my-zsh ]
+    then
+        return
+    fi
+
     if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
         mv ~/.zshrc ~/.zshrc.pre-oh-my-zsh
     fi
@@ -71,12 +76,12 @@ install_noti () {
 }
 
 install_theme () {
-    if [ -e "${HOME}/.oh-my-zsh/themes/powerlevel9k" ]
+    if [ -e "${HOME}/.oh-my-zsh/themes/powerlevel10k" ]
     then
         return
     fi
 
-    git clone "https://github.com/bhilburn/powerlevel9k.git" "~/.oh-my-zsh/themes/powerlevel9k"
+    git clone --quiet --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/themes/powerlevel10k
 }
 
 install

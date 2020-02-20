@@ -1,10 +1,6 @@
 # VI Mode
 bindkey -v
 
-# Disable ctrl-s ctrl-q (suspend, resume. frequently really really annoying!)
-# http://geekanova.blogspot.co.uk/2012/11/ctrl-s-freezes-terminal.html
-stty -ixon -ixoff
-
 # Requires https://github.com/zsh-users/zsh-history-substring-search
 # (handled by antigen)
 # This allows the entire line to be used as a search when pressing up or down.
