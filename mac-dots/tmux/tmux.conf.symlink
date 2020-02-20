@@ -15,6 +15,9 @@ unbind %
 bind | split-window -h -c '#{pane_current_path}'
 bind - split-window -v -c '#{pane_current_path}'
 
+# Allow reload of config with C-a r
+bind-key r source-file ~/.tmux.conf \; display-message "~/.tmux.conf reloaded"
+
 # new-window is bound to c by default, this just makes it open at the current path.
 bind c new-window -c '#{pane_current_path}'
 
