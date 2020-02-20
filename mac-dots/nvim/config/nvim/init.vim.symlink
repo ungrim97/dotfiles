@@ -207,7 +207,7 @@ function s:LoadCustomKeymaps() abort
     nnoremap <leader>p :set paste!<CR>
 
     " Map for rename current word
-    nmap <silent>rn <Plug>(coc-rename)
+    nmap <leader>rn <Plug>(coc-rename)
 
     " Map keys for gotos
     nmap <silent> gd <Plug>(coc-definition)
@@ -215,7 +215,7 @@ function s:LoadCustomKeymaps() abort
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gr <Plug>(coc-references)
 
-    autocmd CursorHold * silent :call CocActionAsync('doHover')
+    nmap <silent> K :call CocAction('doHover')<CR>
 endfunction
 
 function s:LoadFunctionKeymaps() abort
@@ -257,6 +257,8 @@ function s:LoadSettings() abort
 
     " Match EndOfBuffer colour to colourscheme
     highlight EndOfBuffer guibg=0 ctermbg=0
+    highlight PmenuSel guibg='#88b8f6' ctermbg=45
+    highlight Pmenu guibg='#0000d7' ctermbg=45
 
     set termguicolors                   " Set true colour
     set clipboard=unnamed,unnamedplus   " Allow the + register to copy between vim instances
