@@ -100,6 +100,7 @@
     # battery               # internal battery
     # wifi                  # wifi speed
     # example               # example user-defined segment (see prompt_example function below)
+    spotify                 # Show current playing track
   )
 
   # To enable default icons for all segments, don't define POWERLEVEL9K_VISUAL_IDENTIFIER_EXPANSION
@@ -1402,6 +1403,28 @@
   # User-defined prompt segments can be customized the same way as built-in segments.
   # typeset -g POWERLEVEL9K_EXAMPLE_FOREGROUND=208
   # typeset -g POWERLEVEL9K_EXAMPLE_VISUAL_IDENTIFIER_EXPANSION='⭐'
+
+  ################################ Spotify Now Playing Prompt segment #############################
+  #
+  # Show the current playing track in a scrolling marquee segment
+  #
+  function prompt_spotify() {
+      local running=`osascript -e 'application "Spotify" is running'`
+      if [[ $running != "true" ]]
+      then
+        return
+      fi
+
+      local state=`osascript -e 'tell application "Spotify" to player state as string'`
+      if [[ $state != 'playing' ]]
+      then
+        return
+      fi
+
+      local currentTrack=`osascript -e 'tell application "Spotify" to name of current track & " - " & artist of current track as string'`
+      (( $#currentTrack > 20 )) && currentTrack[20,-1]="…"
+      p10k segment -t $currentTrack
+  }
 
   # Transient prompt works similarly to the builtin transient_rprompt option. It trims down prompt
   # when accepting a command line. Supported values:
