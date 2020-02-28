@@ -135,7 +135,13 @@ function s:RegisterPlugins() abort
     " Better folding
     Plug 'pseewald/vim-anyfold'
     Plug 'arecarn/vim-fold-cycle'
-    Plug 'michaeljsmith/vim-indent-object'
+
+    " Fuzzy File Search
+    Plug 'junegunn/fzf', { 'do': './install --bin' }
+    Plug 'junegunn/fzf.vim'
+
+    " Unix Commands
+    Plug 'tpope/vim-eunuch'
 endfunction
 
 function s:ConfigurePlugins() abort
@@ -150,6 +156,7 @@ function s:ConfigurePlugins() abort
     autocmd CursorHold * silent call CocActionAsync('highlight')
 
     " Airline
+    let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#coc#enabled = 1
     let g:airline_powerline_fonts = 1
     let g:airline_skip_empty_sections = 1
@@ -173,7 +180,7 @@ function s:ConfigurePlugins() abort
     filetype plugin indent on
     syntax on
     autocmd FileType * AnyFoldActivate
-    autocmd User anyfoldLoaded normal zv
+    autocmd User anyfoldloaded normal zv
 endfunction
 
 function s:ConfigureCustomFiletypes() abort
@@ -235,7 +242,8 @@ function s:LoadFunctionKeymaps() abort
     " F5 toggles Cursorline and Cursorcolum markers
     nmap <F5> :set cursorline! cursorcolumn!<CR>
 
-    " F6
+    " F6 Open Tagbar and switch to its pane
+    nmap <F6> :TagbarOpenAutoClose<CR>
 
     " F7
 
